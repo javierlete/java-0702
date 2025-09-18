@@ -27,5 +27,13 @@ public class PersonaPrueba {
 		
 		System.out.println(persona3);
 		System.out.println(persona4);
+		
+		persona4 = null;
+		
+		System.gc();
+		
+		for(int i = 0; i < 10000000; i++) {}
+		
+		System.out.println();
 	}
 }

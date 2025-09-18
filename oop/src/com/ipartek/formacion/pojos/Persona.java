@@ -28,6 +28,11 @@ public class Persona {
 		this(persona.getId(), persona.getNombre());
 	}
 
+	// DESTRUCTOR
+	protected void finalize() {
+		System.out.println("DESTRUCTOR DE " + this);
+	}
+	
 	// GETTERS Y SETTERS (MÉTODOS DE ACCESO)
 	public Long getId() {
 		return id;
