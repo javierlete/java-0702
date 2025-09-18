@@ -1,5 +1,6 @@
 package com.ipartek.formacion.pojos;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,8 +9,8 @@ public class Local {
 	private Long id;
 	private String nombre;
 	private Persona encargado;
-	
-	private HashSet<Persona> visitas = new HashSet<>();
+
+	private HashSet<Visita> visitas = new HashSet<>();
 
 	public Local(Long id, String nombre, Persona encargado) {
 		setId(id);
@@ -49,24 +50,28 @@ public class Local {
 		this.encargado = encargado;
 	}
 
-	public Set<Persona> getVisitas() {
+	public Set<Visita> getVisitas() {
 		return Collections.unmodifiableSet(visitas);
 	}
-	
-	public void entrar(Persona persona) {
-		if(persona == null) {
+
+	public Visita entrar(Persona persona) {
+		if (persona == null) {
 			throw new RuntimeException("No tiene sentido que entre null");
 		}
+
+		var visita = new Visita(persona);
 		
-		visitas.add(persona);
+		visitas.add(visita);
+		
+		return visita;
 	}
-	
-	public void salir(Persona persona) {
-		if(persona == null) {
+
+	public void salir(Visita visita) {
+		if (visita == null) {
 			throw new RuntimeException("No tiene sentido que salga null");
 		}
-
-		visitas.remove(persona);
+		
+		visita.setSalida(LocalDateTime.now());
 	}
 
 	@Override
