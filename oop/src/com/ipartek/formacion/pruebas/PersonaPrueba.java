@@ -1,4 +1,6 @@
-package com.ipartek.formacion.pojos;
+package com.ipartek.formacion.pruebas;
+
+import com.ipartek.formacion.pojos.Persona;
 
 public class PersonaPrueba {
 	public static void main(String[] args) {
