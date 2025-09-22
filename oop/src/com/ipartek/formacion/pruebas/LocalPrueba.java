@@ -14,6 +14,7 @@ public class LocalPrueba {
 
 		Persona pepe = new Persona("Pepe");
 		Visita visitaPepe = local.entrar(pepe);
+		
 		local.entrar(pepe); // No entra duplicado porque las visitas son un Set
 		local.entrar(new Persona("Juan"));
 
@@ -27,6 +28,6 @@ public class LocalPrueba {
 
 		local.salir(visitaPepe);
 
-		local.getVisitas().stream().forEach(v -> System.out.println("Después de Pepe: " + v));
+		local.getVisitas().stream().forEach(v -> System.out.println("Después de Pepe: " + v.getNombre()));
 	}
 }

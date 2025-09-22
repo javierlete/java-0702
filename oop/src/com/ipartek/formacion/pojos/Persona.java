@@ -1,13 +1,15 @@
 package com.ipartek.formacion.pojos;
 
+import java.util.Objects;
+
 public class Persona {
 	// CONSTANTES
 	private static final Long ID_POR_DEFECTO = null;
 	private static final String NOMBRE_POR_DEFECTO = "ANÓNIMO";
 	
 	// VARIABLES DE INSTANCIA
-	private Long id;
-	private String nombre;
+	protected Long id;
+	protected String nombre;
 
 	// CONSTRUCTORES
 	public Persona(Long id, String nombre) {
@@ -52,6 +54,24 @@ public class Persona {
 		}
 		
 		this.nombre = nombre.trim();
+	}
+
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
