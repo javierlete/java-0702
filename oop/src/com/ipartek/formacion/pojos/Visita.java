@@ -27,7 +27,7 @@ public class Visita {
 		return id;
 	}
 
-	public void setId(Long id) {
+	void setId(Long id) {
 		this.id = id;
 	}
 
@@ -51,7 +51,7 @@ public class Visita {
 		return salida;
 	}
 
-	public void setSalida(LocalDateTime salida) {
+	void setSalida(LocalDateTime salida) {
 		this.salida = salida;
 	}
 
