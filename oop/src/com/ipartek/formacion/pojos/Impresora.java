@@ -11,9 +11,11 @@ public class Impresora {
 	}
 
 	public void imprimir() {
-		for (Imprimible imprimible : cola) {
-			System.out.println(imprimible.imprimir());
-		}
+		cola.stream().forEach(i -> System.out.println(i.imprimir()));
+		
+//		for (Imprimible imprimible : cola) {
+//			System.out.println(imprimible.imprimir());
+//		}
 		
 		vaciarCola();
 	}
