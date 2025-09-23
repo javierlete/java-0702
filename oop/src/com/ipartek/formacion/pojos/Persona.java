@@ -2,7 +2,7 @@ package com.ipartek.formacion.pojos;
 
 import java.util.Objects;
 
-public class Persona {
+public class Persona implements Imprimible {
 	// CONSTANTES
 	private static final Long ID_POR_DEFECTO = null;
 	private static final String NOMBRE_POR_DEFECTO = "ANÓNIMO";
@@ -77,5 +77,13 @@ public class Persona {
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", nombre=" + nombre + "]";
+	}
+
+	@Override
+	public String imprimir() {
+		return String.format("""
+				Id:     %s
+				Nombre: %s
+				""", id, nombre);
 	}
 }

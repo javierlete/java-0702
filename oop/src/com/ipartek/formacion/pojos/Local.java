@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Local {
+public class Local implements Imprimible {
 	private Long id;
 	private String nombre;
 	private Persona encargado;
@@ -77,6 +77,15 @@ public class Local {
 	@Override
 	public String toString() {
 		return "Local [id=" + id + ", nombre=" + nombre + ", encargado=" + encargado + "]";
+	}
+
+	@Override
+	public String imprimir() {
+		return String.format("""
+				Id:        %s
+				Nombre:    %s
+				Encargado: %s
+				""", id, nombre, encargado);
 	}
 
 }
