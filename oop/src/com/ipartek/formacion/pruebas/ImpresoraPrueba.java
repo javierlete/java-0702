@@ -11,6 +11,8 @@ public class ImpresoraPrueba {
 		
 		Impresora impresora = new Impresora();
 		
+		impresora.agregarACola(() -> "PRINCIPIO");
+		
 		impresora.agregarACola(new Persona(1L, "Javier"));
 		impresora.agregarACola(new Separador(NUMERO_GUIONES));
 		
@@ -27,6 +29,8 @@ public class ImpresoraPrueba {
 		
 		impresora.agregarACola(new Persona(1L, "Javier"));
 		impresora.agregarACola(() -> "=".repeat(NUMERO_GUIONES));
+		
+		impresora.agregarACola(() -> "FIN");
 		
 		impresora.imprimir();
 	}
