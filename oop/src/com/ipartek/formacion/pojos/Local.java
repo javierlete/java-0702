@@ -44,7 +44,7 @@ public class Local implements Imprimible {
 
 	public void setEncargado(Persona encargado) {
 		if (encargado == null) {
-			throw new RuntimeException("Es obligatorio tener un encargado para el local");
+			throw new PojosException("Es obligatorio tener un encargado para el local");
 		}
 
 		this.encargado = encargado;
@@ -56,7 +56,7 @@ public class Local implements Imprimible {
 
 	public Visita entrar(Persona persona) {
 		if (persona == null) {
-			throw new RuntimeException("No tiene sentido que entre null");
+			throw new PojosException("No tiene sentido que entre null");
 		}
 
 		var visita = new Visita(persona);
@@ -68,7 +68,7 @@ public class Local implements Imprimible {
 
 	public void salir(Visita visita) {
 		if (visita == null) {
-			throw new RuntimeException("No tiene sentido que salga null");
+			throw new PojosException("No tiene sentido que salga null");
 		}
 		
 		visita.setSalida(LocalDateTime.now());

@@ -50,7 +50,7 @@ public class Persona implements Imprimible {
 
 	public void setNombre(String nombre) {
 		if(nombre == null || nombre.isBlank()) {
-			throw new RuntimeException("El nombre es obligatorio");
+			throw new PojosException("El nombre es obligatorio");
 		}
 		
 		this.nombre = nombre.trim();
