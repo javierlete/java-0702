@@ -1,7 +1,7 @@
 package com.ipartek.formacion.pruebas;
 
 public class Excepciones {
-	private static String prueba = null;
+//	private static String prueba = null;
 	
 	public static void main(String[] args) {
 //		throw new RuntimeException("Error creado por mí");
@@ -16,7 +16,7 @@ public class Excepciones {
 			
 			div = a / b;
 			
-			prueba.toUpperCase();
+//			prueba.toUpperCase();
 			
 			System.out.println(div);
 		} catch (ArithmeticException e) {
