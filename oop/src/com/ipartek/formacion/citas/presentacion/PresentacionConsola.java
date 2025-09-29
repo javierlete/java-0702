@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import com.ipartek.formacion.citas.accesodatos.DaoCita;
-import com.ipartek.formacion.citas.accesodatos.DaoCitaTreeMap;
+import com.ipartek.formacion.citas.accesodatos.DaoCitaJdbc;
 import com.ipartek.formacion.citas.entidades.Cita;
 
 public class PresentacionConsola {
@@ -17,7 +17,7 @@ public class PresentacionConsola {
 
 	private static final int SALIR = 0;
 
-	private static final DaoCita dao = new DaoCitaTreeMap();
+	private static final DaoCita dao = new DaoCitaJdbc();
 
 	public static void main(String[] args) {
 		// PARA PRUEBAS
