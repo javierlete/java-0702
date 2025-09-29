@@ -3,6 +3,7 @@ package com.ipartek.formacion.citas.presentacion;
 import static com.ipartek.formacion.bibliotecas.Consola.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 import com.ipartek.formacion.citas.accesodatos.DaoCita;
 import com.ipartek.formacion.citas.accesodatos.DaoCitaArrayList;
@@ -27,7 +28,7 @@ public class PresentacionConsola {
 		dao.insertar(
 				new Cita("Cita futura", LocalDateTime.of(2025, 9, 26, 15, 0), LocalDateTime.of(2025, 9, 26, 20, 0)));
 		// FIN PARA PRUEBAS
-		
+
 		int opcion;
 
 		do {
@@ -68,8 +69,8 @@ public class PresentacionConsola {
 	}
 
 	private static void listado() {
-		mostrarCabeceraLinea();
-		dao.obtenerTodos().forEach(PresentacionConsola::mostrarCitaLinea);
+		Collection<Cita> citas = dao.obtenerTodos();
+		mostrarListado(citas);
 	}
 
 	private static void buscarPorId() {
@@ -80,9 +81,8 @@ public class PresentacionConsola {
 
 	private static void buscarPorTexto() {
 		String texto = leerString("Dime el texto a buscar");
-
-		mostrarCabeceraLinea();
-		dao.buscarPorTexto(texto).forEach(PresentacionConsola::mostrarCitaLinea);
+		Collection<Cita> citas = dao.buscarPorTexto(texto);
+		mostrarListado(citas);
 	}
 
 	private static void anyadir() {
@@ -93,13 +93,13 @@ public class PresentacionConsola {
 
 	private static void modificar() {
 		var cita = pedirCita(CON_ID);
-		
+
 		dao.modificar(cita);
 	}
 
 	private static void borrar() {
 		var id = leerLong("Id");
-		
+
 		dao.borrar(id);
 	}
 
@@ -109,16 +109,25 @@ public class PresentacionConsola {
 
 	private static Cita pedirCita(boolean conId) {
 		Long id = null;
-		
-		if(conId) {
+
+		if (conId) {
 			id = leerLong("Id");
 		}
-		
+
 		var texto = leerString("Texto");
 		var inicio = leerLocalDateTime("Inicio");
 		var fin = leerLocalDateTime("Fin");
-	
+
 		return new Cita(id, texto, inicio, fin);
+	}
+
+	private static void mostrarListado(Collection<Cita> citas) {
+		if (citas.isEmpty()) {
+			pl("No se ha encontrado ninguna cita");
+		} else {
+			mostrarCabeceraLinea();
+			citas.forEach(PresentacionConsola::mostrarCitaLinea);
+		}
 	}
 
 	private static void mostrarCabeceraLinea() {

@@ -1,7 +1,9 @@
 package com.ipartek.formacion.citas.accesodatos;
 
+import java.util.Collection;
+
 import com.ipartek.formacion.citas.entidades.Cita;
 
 public interface DaoCita extends Dao<Cita> {
-	Iterable<Cita> buscarPorTexto(String texto);
+	Collection<Cita> buscarPorTexto(String texto);
 }

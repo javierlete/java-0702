@@ -1,6 +1,8 @@
 package com.ipartek.formacion.citas.accesodatos;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -11,8 +13,8 @@ public class DaoCitaArrayList implements DaoCita {
 	private final ArrayList<Cita> citas = new ArrayList<>();
 
 	@Override
-	public Iterable<Cita> obtenerTodos() {
-		return citas;
+	public Collection<Cita> obtenerTodos() {
+		return Collections.unmodifiableCollection(citas);
 	}
 
 	@Override
@@ -64,8 +66,8 @@ public class DaoCitaArrayList implements DaoCita {
 	}
 
 	@Override
-	public Iterable<Cita> buscarPorTexto(String texto) {
-		return citas.stream().filter(c -> c.getTexto().contains(texto)).toList();
+	public Collection<Cita> buscarPorTexto(String texto) {
+		return Collections.unmodifiableCollection(citas.stream().filter(c -> c.getTexto().contains(texto)).toList());
 	}
 
 }
