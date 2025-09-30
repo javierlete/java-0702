@@ -13,7 +13,7 @@ public class PresentacionConsola {
 	private static final boolean CON_ID = true;
 	private static final boolean SIN_ID = false;
 
-	private static final String FORMATO_LINEA = "| %4s | %-50s | %20s | %20s |";
+	private static final String FORMATO_LINEA = "| %4s | %-10s | %-30s | %20s | %20s |";
 
 	private static final int SALIR = 0;
 
@@ -131,19 +131,20 @@ public class PresentacionConsola {
 	}
 
 	private static void mostrarCabeceraLinea() {
-		pfl(FORMATO_LINEA, "Id", "Texto", "Inicio", "Fin");
+		pfl(FORMATO_LINEA, "Id", "Usuario", "Texto", "Inicio", "Fin");
 	}
 
 	private static void mostrarCitaLinea(Cita cita) {
-		pfl(FORMATO_LINEA, cita.getId(), cita.getTexto(), cita.getInicio(), cita.getFin());
+		pfl(FORMATO_LINEA, cita.getId(), cita.getUsuario() != null ? cita.getUsuario().getNombre() : "", cita.getTexto(), cita.getInicio(), cita.getFin());
 	}
 
 	private static void mostrarCitaFicha(Cita cita) {
 		pfl("""
-				Id:     %s
-				Texto:  %s
-				Inicio: %s
-				Fin:    %s
-				""", cita.getId(), cita.getTexto(), cita.getInicio(), cita.getFin());
+				Id:      %s
+				Usuario: %s
+				Texto:   %s
+				Inicio:  %s
+				Fin:     %s
+				""", cita.getId(), cita.getUsuario() != null ? cita.getUsuario().getNombre() : "", cita.getTexto(), cita.getInicio(), cita.getFin());
 	}
 }
