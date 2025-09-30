@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 
+import com.ipartek.formacion.bibliotecas.accesodatos.AccesoDatosException;
 import com.ipartek.formacion.citas.entidades.Cita;
 
 public class DaoCitaArrayList implements DaoCita {

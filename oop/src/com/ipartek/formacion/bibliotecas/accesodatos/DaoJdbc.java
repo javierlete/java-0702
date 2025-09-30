@@ -1,4 +1,4 @@
-package com.ipartek.formacion.bibliotecas;
+package com.ipartek.formacion.bibliotecas.accesodatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import com.ipartek.formacion.citas.accesodatos.AccesoDatosException;
 
 public class DaoJdbc<T> {
 	private String url;

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.citas.accesodatos;
+package com.ipartek.formacion.bibliotecas.accesodatos;
 
 import java.util.Collection;
 import java.util.Optional;

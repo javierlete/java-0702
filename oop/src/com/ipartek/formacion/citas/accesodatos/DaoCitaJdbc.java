@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Optional;
 
-import com.ipartek.formacion.bibliotecas.DaoJdbc;
+import com.ipartek.formacion.bibliotecas.accesodatos.DaoJdbc;
 import com.ipartek.formacion.citas.entidades.Cita;
 
 public class DaoCitaJdbc implements DaoCita {
