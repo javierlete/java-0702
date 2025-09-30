@@ -20,121 +20,73 @@ public class DaoCitaJdbc implements DaoCita {
 
 	@Override
 	public Collection<Cita> obtenerTodos() {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("SELECT * FROM citas");
-				ResultSet rs = pst.executeQuery()) {
-			ArrayList<Cita> citas = new ArrayList<>();
-
-			while (rs.next()) {
-				citas.add(new Cita(rs.getLong("id"), rs.getString("texto"), rs.getTimestamp("inicio").toLocalDateTime(),
-						rs.getTimestamp("fin").toLocalDateTime()));
-			}
-
-			return citas;
-		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
-		}
+		return ejecutarConsulta("SELECT * FROM citas");
 	}
 
 	@Override
 	public Optional<Cita> obtenerPorId(Long id) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("SELECT * FROM citas WHERE id=?");
-				) {
-			pst.setLong(1, id);
-			
-			ResultSet rs = pst.executeQuery();
-			
-			Optional<Cita> cita = Optional.empty();
-			
-			if(rs.next()) {
-				cita = Optional.of(new Cita(rs.getLong("id"), rs.getString("texto"), rs.getTimestamp("inicio").toLocalDateTime(), rs.getTimestamp("fin").toLocalDateTime()));
-			}
-			
-			return cita;
-		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
-		}
+		return ejecutarConsulta("SELECT * FROM citas WHERE id=?", id).stream().findFirst();
 	}
 
 	@Override
 	public Cita insertar(Cita cita) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("INSERT INTO citas (texto,inicio,fin) VALUES (?,?,?)");
-				) {
-			pst.setString(1, cita.getTexto());
-			pst.setTimestamp(2, Timestamp.valueOf(cita.getInicio()));
-			pst.setTimestamp(3, Timestamp.valueOf(cita.getFin()));
-			
-			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados == 0) {
-				throw new AccesoDatosException("Error de concurrencia");
-			}
-			
-			return cita;
-		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
-		}
+		ejecutarConsulta("INSERT INTO citas (texto,inicio,fin) VALUES (?,?,?)", cita.getTexto(),
+				Timestamp.valueOf(cita.getInicio()), Timestamp.valueOf(cita.getFin()));
+
+		return cita;
 	}
 
 	@Override
 	public Cita modificar(Cita cita) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("UPDATE citas SET texto=?,inicio=?,fin=? WHERE id=?");
-				) {
-			pst.setString(1, cita.getTexto());
-			pst.setTimestamp(2, Timestamp.valueOf(cita.getInicio()));
-			pst.setTimestamp(3, Timestamp.valueOf(cita.getFin()));
-			pst.setLong(4, cita.getId());
-			
-			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados == 0) {
-				throw new AccesoDatosException("Error de concurrencia");
-			}
-			
-			return cita;
-		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
-		}
+		ejecutarConsulta("UPDATE citas SET texto=?,inicio=?,fin=? WHERE id=?", cita.getTexto(),
+				Timestamp.valueOf(cita.getInicio()), Timestamp.valueOf(cita.getFin()), cita.getId());
+
+		return cita;
 	}
 
 	@Override
 	public void borrar(Long id) {
-		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("DELETE FROM citas WHERE id=?");
-				) {
-			pst.setLong(1, id);
-			
-			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados == 0) {
-				throw new AccesoDatosException("Error de concurrencia");
-			}
-		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
-		}
+		ejecutarConsulta("DELETE FROM citas WHERE id=?", id);
 	}
 
 	@Override
 	public Collection<Cita> buscarPorTexto(String texto) {
+		return ejecutarConsulta("SELECT * FROM citas WHERE texto LIKE ?", "%" + texto + "%");
+	}
+
+	private Collection<Cita> ejecutarConsulta(String sql, Object... args) {
 		try (Connection con = DriverManager.getConnection(URL, USER, PASS);
-				PreparedStatement pst = con.prepareStatement("SELECT * FROM citas WHERE texto LIKE ?");
-				) {
-			pst.setString(1, "%" + texto + "%");
-			
-			ResultSet rs = pst.executeQuery();
-			
-			ArrayList<Cita> citas = new ArrayList<>();
-			
-			while(rs.next()) {
-				citas.add(new Cita(rs.getLong("id"), rs.getString("texto"), rs.getTimestamp("inicio").toLocalDateTime(), rs.getTimestamp("fin").toLocalDateTime()));
+				PreparedStatement pst = con.prepareStatement(sql);) {
+
+			int i = 1;
+
+			for (var arg : args) {
+				pst.setObject(i++, arg);
 			}
-			
-			return citas;
+
+			if (pst.execute()) {
+				ResultSet rs = pst.getResultSet();
+
+				ArrayList<Cita> citas = new ArrayList<>();
+
+				while (rs.next()) {
+					citas.add(new Cita(rs.getLong("id"), rs.getString("texto"),
+							rs.getTimestamp("inicio").toLocalDateTime(), rs.getTimestamp("fin").toLocalDateTime()));
+				}
+
+				return citas;
+			} else {
+				int numeroRegistrosModificados = pst.getUpdateCount();
+
+				if (numeroRegistrosModificados == 0) {
+					throw new AccesoDatosException("Error de concurrencia");
+				}
+
+				return null;
+			}
+
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener los registros", e);
+			throw new AccesoDatosException("No se ha podido ejecutar la consulta", e);
 		}
 	}
 
