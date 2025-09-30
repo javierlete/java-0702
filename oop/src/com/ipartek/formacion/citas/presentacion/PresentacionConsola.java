@@ -5,8 +5,8 @@ import static com.ipartek.formacion.bibliotecas.Consola.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import com.ipartek.formacion.bibliotecas.Fabrica;
 import com.ipartek.formacion.citas.accesodatos.DaoCita;
-import com.ipartek.formacion.citas.accesodatos.Fabrica;
 import com.ipartek.formacion.citas.entidades.Cita;
 
 public class PresentacionConsola {
@@ -17,7 +17,7 @@ public class PresentacionConsola {
 
 	private static final int SALIR = 0;
 
-	private static final DaoCita dao = Fabrica.obtenerDaoCita();
+	private static final DaoCita dao = (DaoCita) Fabrica.obtenerObjeto("dao.cita");
 
 	public static void main(String[] args) {
 		// PARA PRUEBAS
