@@ -43,8 +43,8 @@ public class DaoJdbc<T> {
 			} else {
 				int numeroRegistrosModificados = pst.getUpdateCount();
 
-				if (numeroRegistrosModificados == 0) {
-					throw new AccesoDatosException("Error de concurrencia");
+				if (numeroRegistrosModificados != 1) {
+					throw new AccesoDatosException("Se han modificado " + numeroRegistrosModificados + " registros");
 				}
 
 				return null;

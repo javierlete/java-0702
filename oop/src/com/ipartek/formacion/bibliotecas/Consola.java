@@ -2,6 +2,7 @@ package com.ipartek.formacion.bibliotecas;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Consola {
 	private static Scanner sc = new Scanner(System.in);
@@ -25,20 +26,25 @@ public class Consola {
 	}
 	
 	public static int leerInt(String mensaje) {
-		String texto = leerString(mensaje);
-		
-		return Integer.parseInt(texto);
+		return leer(mensaje, texto -> Integer.parseInt(texto));
 	}
 
 	public static long leerLong(String mensaje) {
-		String texto = leerString(mensaje);
-		
-		return Long.parseLong(texto);
+		return leer(mensaje, texto -> Long.parseLong(texto));
 	}
-	
+
 	public static LocalDateTime leerLocalDateTime(String mensaje) {
-		String texto = leerString(mensaje);
-		
-		return LocalDateTime.parse(texto);
+		return leer(mensaje, texto -> LocalDateTime.parse(texto));
+	}
+
+	private static <T> T leer(String mensaje, Function<String, T> convertir) {
+		do {
+			String texto = leerString(mensaje);
+			try {
+				return convertir.apply(texto);
+			} catch (Exception e) {
+				pl("El dato que has introducido no es válido");
+			} 
+		} while (true);
 	}
 }

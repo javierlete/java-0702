@@ -10,7 +10,7 @@ import com.ipartek.formacion.citas.entidades.Usuario;
 
 public class DaoUsuarioJdbc implements DaoUsuario {
 
-	private final DaoJdbc<Usuario> dao = new DaoJdbc<>("jdbc:sqlite:bdd/citas.db", "", "");
+	private final DaoJdbc<Usuario> dao = new DaoJdbc<>(Globales.URL, Globales.USER, Globales.PASS);
 
 	@Override
 	public Collection<Usuario> obtenerTodos() {
