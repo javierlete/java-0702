@@ -12,6 +12,14 @@ public class DaoJdbc<T> {
 	private String url;
 	private String user;
 	private String pass;
+
+	static {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			throw new AccesoDatosException("No se ha encontrado el driver", e);
+		}
+	}
 	
 	public DaoJdbc(String url, String user, String pass) {
 		super();
