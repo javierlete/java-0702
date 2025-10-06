@@ -26,24 +26,29 @@ public class VehiculoControlador extends HttpServlet {
 			String path = request.getPathInfo();
 
 			System.out.println(path);
-			
-			for(Method metodo: getClass().getDeclaredMethods()) {
+
+			for (Method metodo : getClass().getDeclaredMethods()) {
 				System.out.println(metodo.getName());
-				
+
 				Ruta ruta = metodo.getAnnotation(Ruta.class);
-				
+
 				System.out.println(ruta);
-				
-				if(ruta != null && ruta.value().equals(path)) {
+
+				if (ruta != null && ruta.value().equals(path)) {
 					metodo.invoke(this, request, response);
 					return;
 				}
 			}
-			
+
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		} catch (SecurityException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 	@Ruta("/listado")
