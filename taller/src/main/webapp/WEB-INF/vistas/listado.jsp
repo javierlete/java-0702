@@ -12,7 +12,7 @@
 <ul>
 	<c:forEach items="${vehiculos}" var="v">
 	<li>
-		${v.matricula}
+		<a href="detalle?matricula=${v.matricula}">${v.matricula}</a>
 	</li>
 	</c:forEach>
 </ul>
