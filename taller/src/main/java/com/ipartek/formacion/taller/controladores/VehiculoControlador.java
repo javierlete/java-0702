@@ -1,8 +1,11 @@
 package com.ipartek.formacion.taller.controladores;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
+import com.ipartek.formacion.bibliotecas.controladores.Ruta;
 import com.ipartek.formacion.taller.accesodatos.DaoVehiculo;
 
 import jakarta.servlet.ServletException;
@@ -19,16 +22,31 @@ public class VehiculoControlador extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String ruta = request.getPathInfo();
+		try {
+			String path = request.getPathInfo();
 
-		switch (ruta) {
-		case "/listado" -> listado(request, response);
-		case "/detalle" -> detalle(request, response);
-		default -> response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			System.out.println(path);
+			
+			for(Method metodo: getClass().getDeclaredMethods()) {
+				System.out.println(metodo.getName());
+				
+				Ruta ruta = metodo.getAnnotation(Ruta.class);
+				
+				System.out.println(ruta);
+				
+				if(ruta != null && ruta.value().equals(path)) {
+					metodo.invoke(this, request, response);
+					return;
+				}
+			}
+			
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		} catch (SecurityException | IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
 		}
-
 	}
 
+	@Ruta("/listado")
 	private void listado(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		var vehiculos = DAO.obtenerTodos();
@@ -38,6 +56,7 @@ public class VehiculoControlador extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/vistas/listado.jsp").forward(request, response);
 	}
 
+	@Ruta("/detalle")
 	private void detalle(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String matricula = request.getParameter("matricula");
