@@ -1,6 +1,5 @@
 package com.ipartek.formacion.bibliotecas;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +10,7 @@ public class Fabrica {
 	
 	static {
 		try {
-			props.load(new FileReader("fabrica.properties"));
+			props.load(Fabrica.class.getClassLoader().getResourceAsStream("fabrica.properties"));
 		} catch (IOException e) {
 			throw new ExceptionInInitializerError("Error al leer el fichero properties");
 		}
