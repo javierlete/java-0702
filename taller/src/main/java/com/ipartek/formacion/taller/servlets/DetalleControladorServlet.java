@@ -1,4 +1,4 @@
-package com.ipartek.formacion.taller.controladores;
+package com.ipartek.formacion.taller.servlets;
 
 import java.io.IOException;
 
