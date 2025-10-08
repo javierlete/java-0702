@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Taller</title>
+<base href="/taller/cf/">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -15,8 +16,34 @@
 </head>
 <body class="h-100 d-flex flex-column justify-content-between">
 
-	<header class="text-bg-dark p-2 text-center">
-		<h1>Taller</h1>
-	</header>
+	<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="listado">Taller</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="listado">Vehículos</a></li>
+				</ul>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<c:choose>
+						<c:when test="${sessionScope.email == null}">
+							<li class="nav-item"><a class="nav-link" href="login">Iniciar
+									sesión</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="navbar-text">${sessionScope.email}</li>
+							<li class="nav-item"><a class="nav-link" href="logout">Cerrar
+									sesión</a></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
 	<%="<main class='container'>"%>

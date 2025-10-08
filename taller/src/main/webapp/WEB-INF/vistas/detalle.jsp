@@ -3,13 +3,13 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <div class="card text-center">
-	<div class="card-header">Featured</div>
+	<div class="card-header lead fw-medium">Vehículo</div>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><span class="fw-bold">Matrícula</span>:
+		<li class="list-group-item"><span class="fw-medium">Matrícula</span>:
 			${vehiculo.matricula}</li>
-		<li class="list-group-item"><span class="fw-bold">Bastidor</span>:
+		<li class="list-group-item"><span class="fw-medium">Bastidor</span>:
 			${vehiculo.bastidor}</li>
-		<li class="list-group-item"><span class="fw-bold">Estado
+		<li class="list-group-item"><span class="fw-medium">Estado
 				de reparación</span>: ${vehiculo.estadoReparacion}</li>
 	</ul>
 </div>
