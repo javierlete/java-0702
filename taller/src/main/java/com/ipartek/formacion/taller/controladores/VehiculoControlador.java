@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
+import com.ipartek.formacion.bibliotecas.accesodatos.AccesoDatosException;
 import com.ipartek.formacion.bibliotecas.controladores.Ruta;
 import com.ipartek.formacion.taller.accesodatos.DaoUsuario;
 import com.ipartek.formacion.taller.accesodatos.DaoVehiculo;
@@ -44,8 +45,32 @@ public class VehiculoControlador {
 		return "login";
 	}
 
-	@Ruta("/autenticar")
-	public String autenticar(Map<String, String> entrada, Map<String, Object> salida) {
+	@Ruta("/formulariopost")
+	public String formularioPost(Map<String, String> entrada, Map<String, Object> salida) {
+		if (entrada.get("registro") != null) {
+			try {
+				registrar(entrada, salida);
+			} catch (AccesoDatosException e) {
+				salida.put("email", entrada.get("email"));
+				salida.put("error", "El usuario ya existe");
+				return "login";
+			}
+		}
+
+		return autenticar(entrada, salida);
+	}
+
+	private void registrar(Map<String, String> entrada, Map<String, Object> salida) {
+		String email = entrada.get("email");
+		String password = entrada.get("password");
+		String nombre = entrada.get("nombre");
+
+		var usuario = new Usuario(null, email, password, nombre);
+
+		DAO_USUARIO.insertar(usuario);
+	}
+
+	private String autenticar(Map<String, String> entrada, Map<String, Object> salida) {
 		String email = entrada.get("email");
 		String password = entrada.get("password");
 

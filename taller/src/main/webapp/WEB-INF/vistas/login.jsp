@@ -11,11 +11,12 @@
 	</div>
 </c:if>
 
-<form action="autenticar" method="post">
+<form action="formulariopost" method="post">
 	<div class="row mb-3">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control" id="email" name="email" value="${email}">
+			<input type="email" class="form-control" id="email" name="email"
+				value="${email}">
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -25,13 +26,44 @@
 				name="password">
 		</div>
 	</div>
+	<div id="capa-nombre" class="row mb-3 d-none">
+		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="nombre" name="nombre">
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label for="registro" class="col-sm-2 form-check-label">Registro</label>
+		<div class="col-sm-10">
+			<input type="checkbox" class="form-check-input" id="registro"
+				name="registro" onclick="conmutarInicioSesionRegistro(this)">
+		</div>
+	</div>
 
 	<div class="row mb-3">
 		<div class="offset-sm-2 col-sm-10">
-			<button type="submit" class="btn btn-primary">Iniciar sesión</button>
+			<button id="boton" type="submit" class="btn btn-primary">Iniciar
+				sesión</button>
 		</div>
 	</div>
 
 </form>
+
+<script>
+	function conmutarInicioSesionRegistro(verificacion) {
+		const capaNombre = document.getElementById('capa-nombre');
+		const boton = document.getElementById('boton');
+
+		if (verificacion.checked) {
+			capaNombre.classList.remove('d-none');
+			boton.innerText = 'Registro';
+		} else {
+			capaNombre.classList.add('d-none')
+			boton.innerText = 'Inicio sesión';
+		}
+
+		
+	}
+</script>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
