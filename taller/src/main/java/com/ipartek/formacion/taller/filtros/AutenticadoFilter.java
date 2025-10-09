@@ -21,9 +21,9 @@ public class AutenticadoFilter implements Filter {
 		var response = (HttpServletResponse) res;
 		
 		var session = request.getSession();
-		var email = session.getAttribute("email");
+		var usuario = session.getAttribute("usuario");
 		
-		if(email == null) {
+		if(usuario == null) {
 			response.sendRedirect(request.getContextPath() + "/cf/login");
 			return;
 		}

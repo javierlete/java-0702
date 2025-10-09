@@ -80,7 +80,7 @@ public class ControladorFrontal extends HttpServlet {
 		log.log(Level.INFO, "LLAMADA A METODO: {0}.{1}()", new Object[] { clase.getName(), method.getName() });
 
 		Map<String, Object> salida = new HashMap<String, Object>();
-		Map<String, String> entrada;
+		Map<String, Object> entrada;
 
 		entrada = crearEntrada(request);
 
@@ -112,7 +112,7 @@ public class ControladorFrontal extends HttpServlet {
 	}
 
 	private String invocarMetodo(Method method, Object instancia, Map<String, Object> salida,
-			Map<String, String> entrada) throws IllegalAccessException, InvocationTargetException {
+			Map<String, Object> entrada) throws IllegalAccessException, InvocationTargetException {
 		return switch (method.getParameterCount()) {
 		case 2 -> (String) method.invoke(instancia, entrada, salida);
 		case 1 -> (String) method.invoke(instancia, salida);
@@ -121,8 +121,8 @@ public class ControladorFrontal extends HttpServlet {
 		};
 	}
 
-	private Map<String, String> crearEntrada(HttpServletRequest request) {
-		Map<String, String> entrada = new HashMap<String, String>();
+	private Map<String, Object> crearEntrada(HttpServletRequest request) {
+		Map<String, Object> entrada = new HashMap<>();
 
 		request.getParameterMap().forEach((clave, array) -> {
 			entrada.put(clave, array[0]);
@@ -133,7 +133,7 @@ public class ControladorFrontal extends HttpServlet {
 
 		while (atributosSesion.hasMoreElements()) {
 			String atributo = atributosSesion.nextElement();
-			entrada.put("sesion." + atributo, (String) session.getAttribute(atributo));
+			entrada.put("sesion." + atributo, session.getAttribute(atributo));
 		}
 
 		log.log(Level.FINE, "ENTRADA: {0}", entrada);
