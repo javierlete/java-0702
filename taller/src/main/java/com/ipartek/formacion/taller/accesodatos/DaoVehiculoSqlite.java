@@ -34,7 +34,7 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 
 	@Override
 	public Vehiculo modificar(Vehiculo vehiculo) {
-		dao.ejecutarConsulta("UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=?) WHERE id=?", null,
+		dao.ejecutarConsulta("UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=? WHERE id=?", null,
 				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(),
 				vehiculo.getId());
 
