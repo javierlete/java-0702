@@ -25,7 +25,8 @@ public class VehiculoRestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
-
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		
 		String path = request.getPathInfo().substring(1);
 
 		PrintWriter out = response.getWriter();
