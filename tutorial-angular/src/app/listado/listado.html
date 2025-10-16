@@ -1,0 +1,11 @@
+<ul>
+    @for(v of vehiculos; track v.id) {
+    <li>
+        <a href="#" (click)="editar(v.id)">{{v.matricula}}</a>
+    </li>
+    }
+</ul>
+
+@if(mostrarFormulario) {
+<app-formulario [vehiculo]="vehiculo"/>
+}

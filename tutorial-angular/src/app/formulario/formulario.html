@@ -1,0 +1,10 @@
+<p>{{vehiculo() | json}}</p>
+<p>{{vehiculo().id}}</p>
+
+<jl-label-input etiqueta="Id" [(value)]="vehiculo().id"></jl-label-input>
+<jl-label-input etiqueta="Matrícula" [(value)]="vehiculo().matricula"></jl-label-input>
+<jl-label-input etiqueta="Bastidor" [(value)]="vehiculo().bastidor"></jl-label-input>
+<jl-label-input etiqueta="Modelo" [(value)]="vehiculo().modelo"></jl-label-input>
+<jl-label-input etiqueta="Marca" [(value)]="vehiculo().marca"></jl-label-input>
+
+<button (click)="guardar()">Guardar</button>
