@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -30,7 +31,7 @@ public class DaoJdbc<T> {
 
 	public Collection<T> ejecutarConsulta(String sql, Mapeador<T> mapeador, Object... args) {
 		try (Connection con = DriverManager.getConnection(url, user, pass);
-				PreparedStatement pst = con.prepareStatement(sql);) {
+				PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
 
 			int i = 1;
 
@@ -41,6 +42,16 @@ public class DaoJdbc<T> {
 			if (pst.execute()) {
 				ResultSet rs = pst.getResultSet();
 
+				ArrayList<T> objetos = new ArrayList<>();
+
+				while (rs.next()) {
+					objetos.add(mapeador.mapear(rs));
+				}
+
+				return objetos;
+			} else if(pst.getGeneratedKeys() != null) {
+				ResultSet rs = pst.getGeneratedKeys();
+				
 				ArrayList<T> objetos = new ArrayList<>();
 
 				while (rs.next()) {
