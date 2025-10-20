@@ -26,7 +26,7 @@ public class VehiculoRestServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		
+
 		String path = request.getPathInfo().substring(1);
 
 		PrintWriter out = response.getWriter();
@@ -36,9 +36,14 @@ public class VehiculoRestServlet extends HttpServlet {
 		} else {
 			Long id = Long.parseLong(path);
 
-			var vehiculo = dao.obtenerPorId(id).get();
+			var vehiculo = dao.obtenerPorId(id);
 
-			out.append(gson.toJson(vehiculo));
+			if (vehiculo.isEmpty()) {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+
+			out.append(gson.toJson(vehiculo.get()));
 		}
 	}
 
@@ -46,13 +51,16 @@ public class VehiculoRestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		var cuerpo = request.getReader();
 
 		var vehiculo = gson.fromJson(cuerpo, Vehiculo.class);
-		
+
 		var vehiculoResultante = dao.insertar(vehiculo);
-		
+
+		response.setStatus(HttpServletResponse.SC_CREATED);
+
 		PrintWriter out = response.getWriter();
 
 		out.append(gson.toJson(vehiculoResultante));
@@ -62,6 +70,7 @@ public class VehiculoRestServlet extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 
 		var cuerpo = request.getReader();
 
@@ -70,9 +79,14 @@ public class VehiculoRestServlet extends HttpServlet {
 		String path = request.getPathInfo().substring(1);
 
 		Long id = Long.parseLong(path);
-		
+
+		if (id != vehiculo.getId()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
+
 		var vehiculoResultante = dao.modificar(vehiculo);
-		
+
 		PrintWriter out = response.getWriter();
 
 		out.append(gson.toJson(vehiculoResultante));
@@ -82,10 +96,21 @@ public class VehiculoRestServlet extends HttpServlet {
 	@Override
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		
 		String path = request.getPathInfo().substring(1);
 
 		Long id = Long.parseLong(path);
-		
+
 		dao.borrar(id);
+
+		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	}
+
+	@Override
+	protected void doOptions(HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Headers", "Content-type");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 	}
 }
