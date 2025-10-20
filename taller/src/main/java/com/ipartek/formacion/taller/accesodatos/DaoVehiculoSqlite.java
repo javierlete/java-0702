@@ -26,16 +26,22 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 
 	@Override
 	public Vehiculo insertar(Vehiculo vehiculo) {
-		dao.ejecutarConsulta("INSERT INTO vehiculos (matricula, bastidor, modelo, marca) VALUES (?,?,?,?)", null,
-				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca());
+		Optional<Vehiculo> vehiculoId = dao
+				.ejecutarConsulta("INSERT INTO vehiculos (matricula, bastidor, modelo, marca, estado_reparacion) VALUES (?,?,?,?,?)", rs -> new Vehiculo(rs.getLong(1), null, null, null, null, null),
+						vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion())
+				.stream().findFirst();
+
+		if (vehiculoId.isPresent()) {
+			vehiculo.setId(vehiculoId.get().getId());
+		}
 
 		return vehiculo;
 	}
 
 	@Override
 	public Vehiculo modificar(Vehiculo vehiculo) {
-		dao.ejecutarConsulta("UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=? WHERE id=?", null,
-				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(),
+		dao.ejecutarConsulta("UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=?, estado_reparacion=? WHERE id=?", null,
+				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion(),
 				vehiculo.getId());
 
 		return vehiculo;
