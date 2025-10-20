@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, input, model, Output, output } from '@angular/core';
-import { Vehiculo } from '../vehiculo';
+import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,4 +13,10 @@ export class LabelInput {
   type = model<string>();
   placeholder = model<string>();
   value = model<any>();
+  opciones = model<Opcion[]>();
+}
+
+export interface Opcion {
+  id?: string;
+  texto: string;
 }
