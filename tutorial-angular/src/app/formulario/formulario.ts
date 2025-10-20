@@ -1,12 +1,11 @@
-import { Component, inject, Input, input, InputSignal, model, output } from '@angular/core';
+import { Component, inject, model, output } from '@angular/core';
 import { LabelInput, Opcion } from '../label-input/label-input';
 import { Vehiculo } from '../vehiculo';
-import { JsonPipe } from '@angular/common';
 import { VehiculoServicio } from '../vehiculo-servicio';
 
 @Component({
   selector: 'app-formulario',
-  imports: [LabelInput, JsonPipe],
+  imports: [LabelInput],
   templateUrl: './formulario.html',
   styleUrl: './formulario.css'
 })
