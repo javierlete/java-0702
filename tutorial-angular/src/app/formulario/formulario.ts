@@ -1,7 +1,8 @@
-import { Component, Input, input, InputSignal, model } from '@angular/core';
-import { LabelInput } from '../label-input/label-input';
+import { Component, inject, Input, input, InputSignal, model, output } from '@angular/core';
+import { LabelInput, Opcion } from '../label-input/label-input';
 import { Vehiculo } from '../vehiculo';
 import { JsonPipe } from '@angular/common';
+import { VehiculoServicio } from '../vehiculo-servicio';
 
 @Component({
   selector: 'app-formulario',
@@ -16,10 +17,29 @@ export class Formulario {
     bastidor: '',
     marca: '',
     modelo: '',
+    estadoReparacion: undefined
   });
+
+  guardado = output<Vehiculo>();
+
+  private vehiculoServicio = inject(VehiculoServicio);
+
+  estados: Opcion[] = [
+    { texto: 'RECIBIDO' }, { texto: 'PRESUPUESTO' }, { texto: 'NO_REPARABLE' }, { texto: 'PENDIENTE_ACEPTACION' }, { texto: 'EN_CURSO' }, { texto: 'REPARADO' }, { texto: 'FACTURADO' }, { texto: 'ENTREGADO' }
+  ]
 
   guardar() {
     console.log(this.vehiculo());
+
+    if (this.vehiculo().id) {
+      this.vehiculoServicio.modificar(this.vehiculo()).subscribe(
+        vehiculoModificado => this.guardado.emit(vehiculoModificado)
+      );
+    } else {
+      this.vehiculoServicio.insertar(this.vehiculo()).subscribe(
+        vehiculoNuevo => this.guardado.emit(vehiculoNuevo)
+      );
+    }
   }
 
 }

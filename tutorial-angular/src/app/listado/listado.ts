@@ -37,4 +37,22 @@ export class Listado implements OnInit {
       v => this.vehiculo = v
     );
   }
+
+  insertar() {
+    this.mostrarFormulario = true;
+  }
+
+  refrescarListado(vehiculo: Vehiculo): void {
+    if(vehiculo.id) {
+       this.vehiculos = this.vehiculos.filter(v => v.id !== vehiculo.id);
+    }
+
+    this.vehiculos.push(vehiculo);
+  }
+
+  borrar(id?: number) {
+    this.vehiculoServicio.borrar(id!).subscribe(
+      () => this.vehiculos = this.vehiculos.filter(v => v.id !== id)
+    );
+  }
 }

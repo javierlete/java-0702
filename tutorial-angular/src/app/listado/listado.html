@@ -2,10 +2,15 @@
     @for(v of vehiculos; track v.id) {
     <li>
         <a href="#" (click)="editar(v.id)">{{v.matricula}}</a>
+        <button (click)="borrar(v.id)" style="background-color: red; color: white;">Borrar</button>
     </li>
     }
 </ul>
 
+<p>
+    <button (click)="insertar()">Insertar</button>
+</p>
+
 @if(mostrarFormulario) {
-<app-formulario [vehiculo]="vehiculo"/>
+<app-formulario [vehiculo]="vehiculo" (guardado)="refrescarListado($event)" />
 }
