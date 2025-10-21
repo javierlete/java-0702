@@ -65,7 +65,7 @@ public class VehiculoControlador {
 		String password = entrada.get("password");
 		String nombre = entrada.get("nombre");
 
-		var usuario = new Usuario(null, email, password, nombre);
+		var usuario = Usuario.builder().email(email).password(password).nombre(nombre).build();
 
 		DAO_USUARIO.insertar(usuario);
 	}

@@ -26,9 +26,10 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 
 	@Override
 	public Vehiculo insertar(Vehiculo vehiculo) {
-		Optional<Vehiculo> vehiculoId = dao
-				.ejecutarConsulta("INSERT INTO vehiculos (matricula, bastidor, modelo, marca, estado_reparacion) VALUES (?,?,?,?,?)", rs -> new Vehiculo(rs.getLong(1), null, null, null, null, null),
-						vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion())
+		Optional<Vehiculo> vehiculoId = dao.ejecutarConsulta(
+				"INSERT INTO vehiculos (matricula, bastidor, modelo, marca, estado_reparacion) VALUES (?,?,?,?,?)",
+				rs -> new Vehiculo(rs.getLong(1), null, null, null, null, null), vehiculo.getMatricula(),
+				vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion())
 				.stream().findFirst();
 
 		if (vehiculoId.isPresent()) {
@@ -40,9 +41,10 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 
 	@Override
 	public Vehiculo modificar(Vehiculo vehiculo) {
-		dao.ejecutarConsulta("UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=?, estado_reparacion=? WHERE id=?", null,
-				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion(),
-				vehiculo.getId());
+		dao.ejecutarConsulta(
+				"UPDATE vehiculos SET matricula=?, bastidor=?, modelo=?, marca=?, estado_reparacion=? WHERE id=?", null,
+				vehiculo.getMatricula(), vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(),
+				vehiculo.getEstadoReparacion(), vehiculo.getId());
 
 		return vehiculo;
 	}
@@ -59,8 +61,8 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 	}
 
 	private static Vehiculo mapeador(ResultSet rs) throws SQLException {
-		return new Vehiculo(rs.getLong("id"), rs.getString("matricula"), rs.getString("bastidor"),
-				rs.getString("modelo"), rs.getString("marca"),
-				EstadoReparacion.valueOf(rs.getString("estado_reparacion")));
+		return Vehiculo.builder().id(rs.getLong("id")).matricula(rs.getString("matricula"))
+				.bastidor(rs.getString("bastidor")).modelo(rs.getString("modelo")).marca(rs.getString("marca"))
+				.estadoReparacion(EstadoReparacion.valueOf(rs.getString("estado_reparacion"))).build();
 	}
 }

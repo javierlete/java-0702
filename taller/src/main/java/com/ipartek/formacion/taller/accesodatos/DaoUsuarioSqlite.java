@@ -49,6 +49,7 @@ public class DaoUsuarioSqlite implements DaoUsuario {
 	}
 
 	private static Usuario mapeador(ResultSet rs) throws SQLException {
-		return new Usuario(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("nombre"));
+		return Usuario.builder().id(rs.getLong("id")).nombre(rs.getString("nombre")).email(rs.getString("email"))
+				.password(rs.getString("password")).build();
 	}
 }
