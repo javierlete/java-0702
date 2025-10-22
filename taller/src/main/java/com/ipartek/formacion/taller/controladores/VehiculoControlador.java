@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
-import com.ipartek.formacion.bibliotecas.accesodatos.AccesoDatosException;
 import com.ipartek.formacion.bibliotecas.controladores.Ruta;
+import com.ipartek.formacion.bibliotecas.validaciones.ValidacionException;
 import com.ipartek.formacion.taller.logicanegocio.AnonimoNegocio;
 import com.ipartek.formacion.taller.logicanegocio.UsuarioNegocio;
 import com.ipartek.formacion.taller.modelos.Usuario;
@@ -50,9 +50,19 @@ public class VehiculoControlador {
 		if (entrada.get("registro") != null) {
 			try {
 				registrar(entrada, salida);
-			} catch (AccesoDatosException e) {
+			} catch(ValidacionException e) {
 				salida.put("email", entrada.get("email"));
+				salida.put("nombre", entrada.get("nombre"));
+				salida.put("errores", e.getErrores());
+			
+				salida.put("error", "Hay errores de validación en los campos");
+				
+				return "login";
+			} catch (Exception e) {
+				salida.put("email", entrada.get("email"));
+				salida.put("nombre", entrada.get("nombre"));
 				salida.put("error", "El usuario ya existe");
+				
 				return "login";
 			}
 		}

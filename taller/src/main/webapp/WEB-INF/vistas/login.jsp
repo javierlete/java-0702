@@ -11,12 +11,15 @@
 	</div>
 </c:if>
 
+<p>${errores}</p>
+
 <form action="formulariopost" method="post">
 	<div class="row mb-3">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>
 		<div class="col-sm-10">
 			<input type="email" class="form-control" id="email" name="email"
 				value="${email}">
+			<div class="text-danger">${errores.email}</div>
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -24,18 +27,20 @@
 		<div class="col-sm-10">
 			<input type="password" class="form-control" id="password"
 				name="password">
+			<div class="text-danger">${errores.password}</div>
 		</div>
 	</div>
-	<div id="capa-nombre" class="row mb-3 d-none">
+	<div id="capa-nombre" class="row mb-3 ${errores != null ? '' : 'd-none' }">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="nombre" name="nombre">
+			<input type="text" class="form-control" id="nombre" name="nombre" value="${nombre}">
+			<div class="text-danger">${errores.nombre}</div>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="registro" class="col-sm-2 form-check-label">Registro</label>
 		<div class="col-sm-10">
-			<input type="checkbox" class="form-check-input" id="registro"
+			<input type="checkbox" ${errores != null ? 'checked' : '' } class="form-check-input" id="registro"
 				name="registro" onclick="conmutarInicioSesionRegistro(this)">
 		</div>
 	</div>
