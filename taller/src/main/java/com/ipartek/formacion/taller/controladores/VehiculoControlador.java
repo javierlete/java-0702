@@ -6,17 +6,17 @@ import java.util.Optional;
 import com.ipartek.formacion.bibliotecas.Fabrica;
 import com.ipartek.formacion.bibliotecas.accesodatos.AccesoDatosException;
 import com.ipartek.formacion.bibliotecas.controladores.Ruta;
-import com.ipartek.formacion.taller.accesodatos.DaoUsuario;
-import com.ipartek.formacion.taller.accesodatos.DaoVehiculo;
+import com.ipartek.formacion.taller.logicanegocio.AnonimoNegocio;
+import com.ipartek.formacion.taller.logicanegocio.UsuarioNegocio;
 import com.ipartek.formacion.taller.modelos.Usuario;
 
 public class VehiculoControlador {
-	private static final DaoVehiculo DAO_VEHICULO = (DaoVehiculo) Fabrica.obtenerObjeto("dao.vehiculo");
-	private static final DaoUsuario DAO_USUARIO = (DaoUsuario) Fabrica.obtenerObjeto("dao.usuario");
+	private static final AnonimoNegocio ANONIMO_NEGOCIO = (AnonimoNegocio) Fabrica.obtenerObjeto("negocio.anonimo");
+	private static final UsuarioNegocio USUARIO_NEGOCIO = (UsuarioNegocio) Fabrica.obtenerObjeto("negocio.usuario");
 
 	@Ruta("/listado")
 	public String listado(Map<String, String> entrada, Map<String, Object> salida) {
-		var vehiculos = DAO_VEHICULO.obtenerTodos();
+		var vehiculos = USUARIO_NEGOCIO.listadoVehiculos();
 
 		salida.put("vehiculos", vehiculos);
 
@@ -27,7 +27,7 @@ public class VehiculoControlador {
 	public String detalle(Map<String, String> entrada, Map<String, Object> salida) {
 		String matricula = entrada.get("matricula");
 
-		var vehiculo = DAO_VEHICULO.buscarPorMatricula(matricula);
+		var vehiculo = USUARIO_NEGOCIO.detalleVehiculo(matricula);
 
 		salida.put("vehiculo", vehiculo.orElse(null));
 
@@ -67,14 +67,14 @@ public class VehiculoControlador {
 
 		var usuario = Usuario.builder().email(email).password(password).nombre(nombre).build();
 
-		DAO_USUARIO.insertar(usuario);
+		ANONIMO_NEGOCIO.registrar(usuario);
 	}
 
 	private String autenticar(Map<String, String> entrada, Map<String, Object> salida) {
 		String email = entrada.get("email");
 		String password = entrada.get("password");
 
-		Optional<Usuario> autenticado = autenticar(email, password);
+		Optional<Usuario> autenticado = ANONIMO_NEGOCIO.autenticar(email, password);
 
 		if (autenticado.isPresent()) {
 			salida.put("sesion.usuario", autenticado.get());
@@ -87,15 +87,4 @@ public class VehiculoControlador {
 
 		return "login";
 	}
-
-	private Optional<Usuario> autenticar(String email, String password) {
-		var usuario = DAO_USUARIO.obtenerPorEmail(email);
-
-		if (usuario.isPresent() && !usuario.get().getPassword().equals(password)) {
-			return Optional.empty();
-		}
-
-		return usuario;
-	}
-
 }

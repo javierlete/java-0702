@@ -1,0 +1,28 @@
+package com.ipartek.formacion.taller.logicanegocio;
+
+import java.util.Collection;
+import java.util.Optional;
+
+import com.ipartek.formacion.bibliotecas.Fabrica;
+import com.ipartek.formacion.taller.accesodatos.DaoVehiculo;
+import com.ipartek.formacion.taller.modelos.Vehiculo;
+
+public class UsuarioNegocioImpl implements UsuarioNegocio {
+	private static final DaoVehiculo DAO_VEHICULO = (DaoVehiculo) Fabrica.obtenerObjeto("dao.vehiculo");
+
+	@Override
+	public Collection<Vehiculo> listadoVehiculos() {
+		return DAO_VEHICULO.obtenerTodos();
+	}
+
+	@Override
+	public Optional<Vehiculo> detalleVehiculo(Long id) {
+		return DAO_VEHICULO.obtenerPorId(id);
+	}
+
+	@Override
+	public Optional<Vehiculo> detalleVehiculo(String matricula) {
+		return DAO_VEHICULO.buscarPorMatricula(matricula);
+	}
+
+}
