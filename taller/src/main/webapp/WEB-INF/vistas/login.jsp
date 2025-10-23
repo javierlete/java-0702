@@ -17,24 +17,24 @@
 	<div class="row mb-3">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>
 		<div class="col-sm-10">
-			<input type="email" class="form-control" id="email" name="email"
+			<input type="email" class="form-control ${errores == null ? '' : (errores.email != null ? 'is-invalid' : 'is-valid') }" id="email" name="email"
 				value="${email}">
-			<div class="text-danger">${errores.email}</div>
+			<div class="invalid-feedback">${errores.email}</div>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="password" class="col-sm-2 col-form-label">Contraseña</label>
 		<div class="col-sm-10">
-			<input type="password" class="form-control" id="password"
+			<input type="password" class="form-control ${errores == null ? '' : (errores.password != null ? 'is-invalid' : 'is-valid') }" id="password"
 				name="password">
-			<div class="text-danger">${errores.password}</div>
+			<div class="invalid-feedback">${errores.password}</div>
 		</div>
 	</div>
 	<div id="capa-nombre" class="row mb-3 ${errores != null ? '' : 'd-none' }">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="nombre" name="nombre" value="${nombre}">
-			<div class="text-danger">${errores.nombre}</div>
+			<input type="text" class="form-control ${errores == null ? '' : (errores.nombre != null ? 'is-invalid' : 'is-valid') }" id="nombre" name="nombre" value="${nombre}">
+			<div class="invalid-feedback">${errores.nombre}</div>
 		</div>
 	</div>
 	<div class="row mb-3">
