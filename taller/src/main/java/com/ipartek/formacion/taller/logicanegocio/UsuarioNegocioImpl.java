@@ -25,4 +25,19 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 		return DAO_VEHICULO.buscarPorMatricula(matricula);
 	}
 
+	@Override
+	public Vehiculo altaVehiculo(Vehiculo vehiculo) {
+		return DAO_VEHICULO.insertar(vehiculo);
+	}
+
+	@Override
+	public Vehiculo modificacionVehiculo(Vehiculo vehiculo) {
+		return DAO_VEHICULO.modificar(vehiculo);
+	}
+
+	@Override
+	public void bajaVehiculo(Long id) {
+		DAO_VEHICULO.borrar(id);
+	}
+
 }
