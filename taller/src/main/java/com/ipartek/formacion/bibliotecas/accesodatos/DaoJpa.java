@@ -12,12 +12,12 @@ import jakarta.persistence.Persistence;
 public class DaoJpa<T> implements Dao<T> {
 	public final EntityManagerFactory emf;
 	public final Class<T> clase;
-	
+
 	public DaoJpa(String unidadPersistencia, Class<T> clase) {
 		emf = Persistence.createEntityManagerFactory(unidadPersistencia);
 		this.clase = clase;
 	}
-	
+
 	@Override
 	public Collection<T> obtenerTodos() {
 		return ejecutarJpa(em -> em.createQuery("from " + clase.getName(), clase).getResultList());
@@ -51,20 +51,28 @@ public class DaoJpa<T> implements Dao<T> {
 			return null;
 		});
 	}
-	
+
 	public <R> R ejecutarJpa(Function<EntityManager, R> codigo) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction t = em.getTransaction();
+		
+		try {
+			t.begin();
 
-		t.begin();
+			R resultado = codigo.apply(em);
 
-		R resultado = codigo.apply(em);
+			t.commit();
 
-		t.commit();
-
-		em.close();
-
-		return resultado;
+			return resultado;
+		} catch (Exception e) {
+			if (t.isActive()) {
+				t.rollback();
+			}
+			
+			throw new AccesoDatosException("No se ha podido hacer la operación JPA", e);
+		} finally {
+			em.close();
+		}
 	}
 
 }
