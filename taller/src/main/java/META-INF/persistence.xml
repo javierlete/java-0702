@@ -11,17 +11,18 @@
 		<properties>
 			<!-- Database connection settings -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:sqlite:tallerjpa.db" />
+				value="jdbc:sqlite:tallerjpa.db?foreign_keys=on" />
 			<property name="jakarta.persistence.jdbc.user" value="sa" />
 			<property name="jakarta.persistence.jdbc.password" value="" />
 			<property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
 
 			<!-- Automatically export the schema -->
-			<property
+			<!-- <property
 				name="jakarta.persistence.schema-generation.database.action"
-				value="create" />
+				value="create" /> -->
 
 			<!-- Echo all executed SQL to console -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.highlight_sql" value="true" />

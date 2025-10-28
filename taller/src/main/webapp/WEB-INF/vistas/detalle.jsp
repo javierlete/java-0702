@@ -11,6 +11,8 @@
 			${vehiculo.bastidor}</li>
 		<li class="list-group-item"><span class="fw-medium">Estado
 				de reparación</span>: ${vehiculo.estadoReparacion}</li>
+		<li class="list-group-item"><span class="fw-medium">Propietario</span>:
+			${vehiculo.propietario.nombre}</li>
 	</ul>
 </div>
 
