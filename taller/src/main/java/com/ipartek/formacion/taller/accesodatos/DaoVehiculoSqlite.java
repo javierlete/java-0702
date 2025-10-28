@@ -28,7 +28,7 @@ public class DaoVehiculoSqlite implements DaoVehiculo {
 	public Vehiculo insertar(Vehiculo vehiculo) {
 		Optional<Vehiculo> vehiculoId = dao.ejecutarConsulta(
 				"INSERT INTO vehiculos (matricula, bastidor, modelo, marca, estado_reparacion) VALUES (?,?,?,?,?)",
-				rs -> new Vehiculo(rs.getLong(1), null, null, null, null, null), vehiculo.getMatricula(),
+				DaoVehiculoSqlite::mapeador, vehiculo.getMatricula(),
 				vehiculo.getBastidor(), vehiculo.getModelo(), vehiculo.getMarca(), vehiculo.getEstadoReparacion())
 				.stream().findFirst();
 
