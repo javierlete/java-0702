@@ -12,12 +12,12 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 
 	@Override
 	public Collection<Vehiculo> listadoVehiculos() {
-		return DAO_VEHICULO.obtenerTodos();
+		return DAO_VEHICULO.obtenerTodosConPropietario();
 	}
 
 	@Override
 	public Optional<Vehiculo> detalleVehiculo(Long id) {
-		return DAO_VEHICULO.obtenerPorId(id);
+		return DAO_VEHICULO.obtenerPorIdConPropietario(id);
 	}
 
 	@Override
