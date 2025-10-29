@@ -39,7 +39,9 @@
 							<li class="navbar-text">${sessionScope.usuario.nombre}</li>
 							<li class="nav-item"><a class="nav-link" href="logout">Cerrar
 									sesión</a></li>
-							<li class="nav-item"><a class="nav-link" href="admin">Administración</a></li>
+							<c:if test="${sessionScope.usuario.rol.nombre == 'ADMIN'}">
+								<li class="nav-item"><a class="nav-link" href="admin">Administración</a></li>
+							</c:if>
 						</c:otherwise>
 					</c:choose>
 				</ul>

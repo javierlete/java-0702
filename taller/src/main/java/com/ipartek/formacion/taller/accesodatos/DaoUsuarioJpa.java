@@ -13,7 +13,7 @@ public class DaoUsuarioJpa extends DaoJpa<Usuario> implements DaoUsuario {
 	
 	@Override
 	public Optional<Usuario> obtenerPorEmail(String email) {
-		return ejecutarJpa(em -> Optional.ofNullable(em.createQuery("from Usuario where email=:email", Usuario.class)
+		return ejecutarJpa(em -> Optional.ofNullable(em.createQuery("from Usuario u left join fetch u.rol where u.email=:email", Usuario.class)
 				.setParameter("email", email).getSingleResultOrNull()));
 	}
 

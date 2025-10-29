@@ -15,13 +15,13 @@ public class DaoVehiculoJpa extends DaoJpa<Vehiculo> implements DaoVehiculo {
 	@Override
 	public Collection<Vehiculo> obtenerTodosConPropietario() {
 		return ejecutarJpa(
-				em -> em.createQuery("from Vehiculo v left join fetch v.propietario", Vehiculo.class).getResultList());
+				em -> em.createQuery("from Vehiculo v left join fetch v.propietario p left join fetch p.rol", Vehiculo.class).getResultList());
 	}
 
 	@Override
 	public Optional<Vehiculo> obtenerPorIdConPropietario(Long id) {
 		return Optional.ofNullable(ejecutarJpa(
-				em -> em.createQuery("from Vehiculo v left join fetch v.propietario where v.id=:id", Vehiculo.class)
+				em -> em.createQuery("from Vehiculo v left join fetch v.propietario p left join fetch p.rol where v.id=:id", Vehiculo.class)
 						.setParameter("id", id).getSingleResultOrNull()));
 	}
 

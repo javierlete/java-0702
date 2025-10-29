@@ -3,5 +3,6 @@
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
 <p class="lead text-center fw-medium">${usuario.nombre}: ${usuario.email}</p>
+<p class="lead text-center fw-medium">${usuario.rol.nombre}</p>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
