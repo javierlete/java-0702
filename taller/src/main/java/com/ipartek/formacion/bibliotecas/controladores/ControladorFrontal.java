@@ -85,6 +85,16 @@ public class ControladorFrontal extends HttpServlet {
 
 		String vista = invocarMetodo(method, instancia, salida, entrada);
 
+		if(vista != null && vista.startsWith("redirect:")) {
+			String ruta = "/cf" + vista.replace("redirect:", "");
+			
+			log.log(Level.INFO, "REDIRECCIÓN DETECTADA: {0}", ruta);
+
+			response.sendRedirect(request.getContextPath() + ruta);
+			
+			return;
+		}
+		
 		crearSalida(request, salida);
 
 		log.log(Level.FINE, "VISTA: {0}", vista);
