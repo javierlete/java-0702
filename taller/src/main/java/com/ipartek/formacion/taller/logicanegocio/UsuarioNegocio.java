@@ -3,6 +3,7 @@ package com.ipartek.formacion.taller.logicanegocio;
 import java.util.Collection;
 import java.util.Optional;
 
+import com.ipartek.formacion.taller.modelos.Usuario;
 import com.ipartek.formacion.taller.modelos.Vehiculo;
 
 public interface UsuarioNegocio {
@@ -13,4 +14,6 @@ public interface UsuarioNegocio {
 	Vehiculo altaVehiculo(Vehiculo vehiculo);
 	Vehiculo modificacionVehiculo(Vehiculo vehiculo);
 	void bajaVehiculo(Long id);
+	
+	Collection<Usuario> listadoUsuarios();
 }

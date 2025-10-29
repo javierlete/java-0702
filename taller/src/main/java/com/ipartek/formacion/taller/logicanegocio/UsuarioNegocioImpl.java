@@ -4,11 +4,14 @@ import java.util.Collection;
 import java.util.Optional;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
+import com.ipartek.formacion.taller.accesodatos.DaoUsuario;
 import com.ipartek.formacion.taller.accesodatos.DaoVehiculo;
+import com.ipartek.formacion.taller.modelos.Usuario;
 import com.ipartek.formacion.taller.modelos.Vehiculo;
 
 public class UsuarioNegocioImpl implements UsuarioNegocio {
 	private static final DaoVehiculo DAO_VEHICULO = (DaoVehiculo) Fabrica.obtenerObjeto("dao.vehiculo");
+	private static final DaoUsuario DAO_USUARIO = (DaoUsuario) Fabrica.obtenerObjeto("dao.usuario");
 
 	@Override
 	public Collection<Vehiculo> listadoVehiculos() {
@@ -38,6 +41,11 @@ public class UsuarioNegocioImpl implements UsuarioNegocio {
 	@Override
 	public void bajaVehiculo(Long id) {
 		DAO_VEHICULO.borrar(id);
+	}
+
+	@Override
+	public Collection<Usuario> listadoUsuarios() {
+		return DAO_USUARIO.obtenerTodos();
 	}
 
 }

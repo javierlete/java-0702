@@ -19,10 +19,17 @@ public class DaoVehiculoJpa extends DaoJpa<Vehiculo> implements DaoVehiculo {
 	}
 
 	@Override
+	public Optional<Vehiculo> obtenerPorIdConPropietario(Long id) {
+		return Optional.ofNullable(ejecutarJpa(
+				em -> em.createQuery("from Vehiculo v left join fetch v.propietario where v.id=:id", Vehiculo.class)
+						.setParameter("id", id).getSingleResultOrNull()));
+	}
+
+	@Override
 	public Optional<Vehiculo> buscarPorMatricula(String matricula) {
-		return ejecutarJpa(em -> Optional.ofNullable(
-				em.createQuery("from Vehiculo v left join fetch v.propietario where v.matricula=:matricula", Vehiculo.class)
-						.setParameter("matricula", matricula).getSingleResultOrNull()));
+		return ejecutarJpa(em -> Optional
+				.ofNullable(em.createQuery("from Vehiculo v left join fetch v.propietario where v.matricula=:matricula",
+						Vehiculo.class).setParameter("matricula", matricula).getSingleResultOrNull()));
 	}
 
 }

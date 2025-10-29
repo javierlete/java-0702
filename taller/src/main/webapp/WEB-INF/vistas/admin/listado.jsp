@@ -6,10 +6,11 @@
 	<thead class="table-secondary">
 		<tr>
 			<th>Id</th>
-			<td>Matrícula</td>
-			<td>Marca</td>
-			<td>Modelo</td>
-			<td>Propietario</td>
+			<th>Matrícula</th>
+			<th>Marca</th>
+			<th>Modelo</th>
+			<th>Propietario</th>
+			<th>OPCIONES</th>
 		</tr>
 	</thead>
 
@@ -21,9 +22,21 @@
 				<td>${v.marca}</td>
 				<td>${v.modelo}</td>
 				<td>${v.propietario.nombre}</td>
+				<td><a class="btn btn-sm btn-primary" href="admin/formulario?id=${v.id}">Editar</a>
+					<a class="btn btn-sm btn-danger" href="admin/borrar?id=${v.id}">Borrar</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
+
+	<tfoot class="table-secondary">
+		<tr>
+			<td colspan="5"></td>
+			<td><a class="btn btn-sm btn-primary" href="admin/formulario">Añadir</a>
+			</td>
+
+		</tr>
+	</tfoot>
 </table>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
