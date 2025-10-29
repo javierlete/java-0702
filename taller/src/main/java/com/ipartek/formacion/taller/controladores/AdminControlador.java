@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
 import com.ipartek.formacion.bibliotecas.controladores.Ruta;
+import com.ipartek.formacion.bibliotecas.validaciones.ValidacionException;
 import com.ipartek.formacion.taller.logicanegocio.UsuarioNegocio;
 import com.ipartek.formacion.taller.modelos.Usuario;
 import com.ipartek.formacion.taller.modelos.Vehiculo;
@@ -58,10 +59,21 @@ public class AdminControlador {
 		Vehiculo vehiculo = Vehiculo.builder().id(id).matricula(matricula).marca(marca).modelo(modelo)
 				.bastidor(bastidor).estadoReparacion(estado).propietario(propietario).build();
 		
-		if(vehiculo.getId() == null) {
-			USUARIO_NEGOCIO.altaVehiculo(vehiculo);
-		} else {
-			USUARIO_NEGOCIO.modificacionVehiculo(vehiculo);
+		try {
+			if(vehiculo.getId() == null) {
+				USUARIO_NEGOCIO.altaVehiculo(vehiculo);
+			} else {
+				USUARIO_NEGOCIO.modificacionVehiculo(vehiculo);
+			}
+		} catch (ValidacionException e) {
+			var usuarios = USUARIO_NEGOCIO.listadoUsuarios();
+			
+			salida.put("vehiculo", vehiculo);
+			salida.put("propietarios", usuarios);
+			salida.put("estados", EstadoReparacion.values());
+			salida.put("errores", e.getErrores());
+			
+			return "admin/formulario";
 		}
 		
 		return "redirect:/admin";
