@@ -11,8 +11,6 @@
 	</div>
 </c:if>
 
-<p>${errores}</p>
-
 <form action="formulariopost" method="post">
 	<div class="row mb-3">
 		<label for="email" class="col-sm-2 col-form-label">Email</label>

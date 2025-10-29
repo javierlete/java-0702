@@ -11,8 +11,6 @@
 	</div>
 </c:if>
 
-<p>${errores}</p>
-
 <form action="admin/formulariopost" method="post">
 	<input type="hidden" name="id" value="${vehiculo.id}">
 
