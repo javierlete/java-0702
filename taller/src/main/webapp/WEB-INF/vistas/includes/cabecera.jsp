@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="jl" %>
 <!DOCTYPE html>
 <html class="h-100">
 <head>

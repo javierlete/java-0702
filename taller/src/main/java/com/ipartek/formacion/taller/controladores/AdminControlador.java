@@ -1,10 +1,12 @@
 package com.ipartek.formacion.taller.controladores;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import com.ipartek.formacion.bibliotecas.Fabrica;
 import com.ipartek.formacion.bibliotecas.controladores.Ruta;
+import com.ipartek.formacion.bibliotecas.etiquetas.Opcion;
 import com.ipartek.formacion.bibliotecas.validaciones.ValidacionException;
 import com.ipartek.formacion.taller.logicanegocio.UsuarioNegocio;
 import com.ipartek.formacion.taller.modelos.Usuario;
@@ -25,21 +27,26 @@ public class AdminControlador {
 
 	@Ruta("/admin/formulario")
 	public String formulario(Map<String, String> entrada, Map<String, Object> salida) {
-		String sId= entrada.get("id");
-		
+		String sId = entrada.get("id");
+
 		Long id = sId == null ? null : Long.parseLong(sId);
-		
-		if(id != null) {
+
+		if (id != null) {
 			Optional<Vehiculo> oUsuario = USUARIO_NEGOCIO.detalleVehiculo(id);
 			salida.put("vehiculo", oUsuario.orElse(Vehiculo.builder().build()));
 		}
-		
-		var usuarios = USUARIO_NEGOCIO.listadoUsuarios();
 
-		salida.put("propietarios", usuarios);
-		salida.put("estados", EstadoReparacion.values());
+		datosFormulario(salida);
 
 		return "admin/formulario";
+	}
+
+	private void datosFormulario(Map<String, Object> salida) {
+		var usuarios = USUARIO_NEGOCIO.listadoUsuarios();
+		
+		salida.put("propietarios", usuarios);
+		salida.put("estados",
+				List.of(EstadoReparacion.values()).stream().map(e -> new Opcion(e.toString(), e.toString())).toList());
 	}
 
 	@Ruta("/admin/formulariopost")
@@ -58,24 +65,21 @@ public class AdminControlador {
 
 		Vehiculo vehiculo = Vehiculo.builder().id(id).matricula(matricula).marca(marca).modelo(modelo)
 				.bastidor(bastidor).estadoReparacion(estado).propietario(propietario).build();
-		
+
 		try {
-			if(vehiculo.getId() == null) {
+			if (vehiculo.getId() == null) {
 				USUARIO_NEGOCIO.altaVehiculo(vehiculo);
 			} else {
 				USUARIO_NEGOCIO.modificacionVehiculo(vehiculo);
 			}
 		} catch (ValidacionException e) {
-			var usuarios = USUARIO_NEGOCIO.listadoUsuarios();
-			
 			salida.put("vehiculo", vehiculo);
-			salida.put("propietarios", usuarios);
-			salida.put("estados", EstadoReparacion.values());
+			datosFormulario(salida);
 			salida.put("errores", e.getErrores());
-			
+
 			return "admin/formulario";
 		}
-		
+
 		return "redirect:/admin";
 	}
 

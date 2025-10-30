@@ -12,51 +12,20 @@
 </c:if>
 
 <form action="formulariopost" method="post">
-	<div class="row mb-3">
-		<label for="email" class="col-sm-2 col-form-label">Email</label>
-		<div class="col-sm-10">
-			<input type="email" class="form-control ${errores == null ? '' : (errores.email != null ? 'is-invalid' : 'is-valid') }" id="email" name="email"
-				value="${email}">
-			<div class="invalid-feedback">${errores.email}</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="password" class="col-sm-2 col-form-label">Contraseña</label>
-		<div class="col-sm-10">
-			<input type="password" class="form-control ${errores == null ? '' : (errores.password != null ? 'is-invalid' : 'is-valid') }" id="password"
-				name="password">
-			<div class="invalid-feedback">${errores.password}</div>
-		</div>
-	</div>
-	<div id="capa-nombre" class="row mb-3 ${errores != null ? '' : 'd-none' }">
-		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control ${errores == null ? '' : (errores.nombre != null ? 'is-invalid' : 'is-valid') }" id="nombre" name="nombre" value="${nombre}">
-			<div class="invalid-feedback">${errores.nombre}</div>
-		</div>
-	</div>
-	<div class="row mb-3">
-		<label for="registro" class="col-sm-2 form-check-label">Registro</label>
-		<div class="col-sm-10">
-			<input type="checkbox" ${errores != null ? 'checked' : '' } class="form-check-input" id="registro"
-				name="registro" onclick="conmutarInicioSesionRegistro(this)">
-		</div>
-	</div>
-
-	<div class="row mb-3">
-		<div class="offset-sm-2 col-sm-10">
-			<button id="boton" type="submit" class="btn btn-primary">Iniciar
-				sesión</button>
-		</div>
-	</div>
-
+	<jl:labelinput nombre="email" tipo="email" etiqueta="Email" valor="${email}"/>
+	<jl:labelinput nombre="password" tipo="password" etiqueta="Contraseña"/>
+	<jl:labelinput id="capa-nombre" nombre="nombre" tipo="text" etiqueta="Nombre" valor="${nombre}"/>
+	<jl:labelinput nombre="registro" tipo="checkbox" etiqueta="Registro" valor="${errores != null}" onclick="conmutarInicioSesionRegistro(this)"/>
+	<jl:labelinput idBoton="boton" tipo="submit" etiqueta="Iniciar sesión" />
 </form>
 
 <script>
+	const capaNombre = document.getElementById('capa-nombre');
+	const boton = document.getElementById('boton');
+	
+	capaNombre.classList.add('d-none')
+	
 	function conmutarInicioSesionRegistro(verificacion) {
-		const capaNombre = document.getElementById('capa-nombre');
-		const boton = document.getElementById('boton');
-
 		if (verificacion.checked) {
 			capaNombre.classList.remove('d-none');
 			boton.innerText = 'Registro';
