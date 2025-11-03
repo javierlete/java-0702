@@ -1,0 +1,60 @@
+package com.ipartek.formacion.springtaller.pruebas;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import com.ipartek.formacion.springtaller.entidades.Rol;
+import com.ipartek.formacion.springtaller.entidades.Usuario;
+import com.ipartek.formacion.springtaller.entidades.Vehiculo;
+import com.ipartek.formacion.springtaller.repositorios.RolRepository;
+import com.ipartek.formacion.springtaller.repositorios.UsuarioRepository;
+import com.ipartek.formacion.springtaller.repositorios.VehiculoRepository;
+
+@Component
+public class RepositoriosPrueba implements CommandLineRunner {
+
+	@Autowired
+	private VehiculoRepository vehiculoRepository;
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@Autowired
+	private RolRepository rolRepository;
+
+	@Override
+	public void run(String... args) throws Exception {
+		var admin = Rol.builder().nombre("ADMIN").build();
+		var user = Rol.builder().nombre("USER").build();
+
+		rolRepository.saveAll(List.of(admin, user));
+
+		usuarioRepository.save(
+				Usuario.builder().nombre("Javier").email("javier@email.net").password("javier").rol(admin).build());
+		usuarioRepository
+				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password("pepe").rol(admin).build());
+		usuarioRepository
+				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password("juan").rol(admin).build());
+
+		usuarioRepository.findByEmail("pepe@email.net").ifPresent(System.out::println);
+
+		vehiculoRepository.save(Vehiculo.builder().matricula("1234ABC").bastidor("12341234123412341")
+				.propietario(Usuario.builder().id(1L).build()).build());
+		vehiculoRepository.save(Vehiculo.builder().matricula("5678ABC").bastidor("12341234123412342")
+				.propietario(Usuario.builder().id(2L).build()).build());
+		vehiculoRepository.save(Vehiculo.builder().matricula("4321ABC").bastidor("12341234123412343")
+				.propietario(Usuario.builder().id(2L).build()).build());
+
+		vehiculoRepository.findAll().forEach(System.out::println);
+		
+		vehiculoRepository.obtenerTodosConPropietario().forEach(System.out::println);
+		
+		vehiculoRepository.obtenerPorIdConPropietario(2L).ifPresent(System.out::println);
+		
+		vehiculoRepository.buscarPorMatricula("4321ABC").ifPresent(System.out::println);
+	}
+
+}
