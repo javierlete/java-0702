@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import com.ipartek.formacion.springtaller.repositorios.RolRepository;
 import com.ipartek.formacion.springtaller.repositorios.UsuarioRepository;
 import com.ipartek.formacion.springtaller.repositorios.VehiculoRepository;
 
+@Order(1)
 @Component
 public class RepositoriosPrueba implements CommandLineRunner {
 
@@ -37,9 +39,9 @@ public class RepositoriosPrueba implements CommandLineRunner {
 		usuarioRepository.save(
 				Usuario.builder().nombre("Javier").email("javier@email.net").password("javier").rol(admin).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password("pepe").rol(admin).build());
+				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password("pepe").rol(user).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password("juan").rol(admin).build());
+				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password("juan").rol(user).build());
 
 		usuarioRepository.findByEmail("pepe@email.net").ifPresent(System.out::println);
 
