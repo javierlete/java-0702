@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.springtaller.entidades.Rol;
@@ -48,12 +50,26 @@ public class RepositoriosPrueba implements CommandLineRunner {
 		vehiculoRepository.save(Vehiculo.builder().matricula("4321ABC").bastidor("12341234123412343")
 				.propietario(Usuario.builder().id(2L).build()).build());
 
+		System.out.println("\nTodos los vehículos\n");
+		
 		vehiculoRepository.findAll().forEach(System.out::println);
 		
-		vehiculoRepository.obtenerTodosConPropietario().forEach(System.out::println);
+		System.out.println("\nPrimera página\n");
 		
+		Page<Vehiculo> pagina = vehiculoRepository.obtenerTodosConPropietario(Pageable.ofSize(2));
+		pagina.forEach(System.out::println);
+		
+		System.out.println("\nSiguiente página\n");
+		
+		pagina = vehiculoRepository.obtenerTodosConPropietario(pagina.nextOrLastPageable());
+		pagina.forEach(System.out::println);
+		
+		System.out.println("\nBuscar id 2\n");
+
 		vehiculoRepository.obtenerPorIdConPropietario(2L).ifPresent(System.out::println);
 		
+		System.out.println("\nBuscar matrícula 4321ABC\n");
+
 		vehiculoRepository.buscarPorMatricula("4321ABC").ifPresent(System.out::println);
 	}
 
