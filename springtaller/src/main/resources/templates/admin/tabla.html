@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<h1>Vehículos</h1>
+
+	<pre th:text="${vehiculos}">LOS VEHÍCULOS</pre>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Estado de reparación</th>
+				<th>Matrícula</th>
+				<th>Bastidor</th>
+				<th>Propietario</th>
+				<th>OPCIONES</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="vehiculo: ${vehiculos}" th:object="${vehiculo}">
+				<th th:text="*{id}">1</th>
+				<td th:text="*{estadoReparacion}">Pendiente</td>
+				<td th:text="*{matricula}">1234ABC</td>
+				<td th:text="*{bastidor}">12345678876543212</td>
+				<td th:text="*{propietario.nombre}">Pepe</td>
+				<td>
+					<a href="#" th:href="@{/admin/editar(id=*{id})}">Editar</a>
+					<a href="#" th:href="@{/admin/borrar(id=*{id})}">Borrar</a>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5"></td>
+				<td>
+					<a href="#" th:href="@{/admin/editar}">Añadir</a>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>

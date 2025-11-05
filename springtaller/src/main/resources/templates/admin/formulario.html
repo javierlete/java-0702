@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<h1>Vehículo</h1>
+
+	<pre th:text="${vehiculo}"></pre>
+
+	<form action="tabla.html" th:action="@{/admin/editar}" method="post" th:object="${vehiculo}">
+		<input th:field="*{id}"> 
+		
+		<input placeholder="Matrícula" th:field="*{matricula}">
+		<p th:errors="*{matricula}"></p>
+
+		<input placeholder="Bastidor" th:field="*{bastidor}">
+		<p th:errors="*{bastidor}"></p>
+
+		<input placeholder="Marca" th:field="*{marca}">
+		<p th:errors="*{marca}"></p>
+
+		<input placeholder="Modelo" th:field="*{modelo}">
+		<p th:errors="*{modelo}"></p>
+
+		<select th:field="*{estadoReparacion}">
+			<option th:each="estado: ${estados}" th:text="${estado}" th:value="${estado}"></option>
+		</select>
+		<p th:errors="*{estadoReparacion}"></p>
+
+		<select th:field="*{propietario}">
+			<option th:each="usuario: ${usuarios}" th:text="${usuario.nombre}" th:value="${usuario.id}"></option>
+		</select>
+		<p th:errors="*{propietario}"></p>
+	
+		<button>Guardar</button>
+	</form>
+
+</body>
+</html>
