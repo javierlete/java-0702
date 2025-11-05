@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<h1>Vehículo</h1>
+
+	<pre th:text="${vehiculo}">EL VEHÍCULO</pre>
+
+	<div th:object="${vehiculo}">
+		<p th:text="*{propietario.nombre}">Pepe</p>
+		<p th:text="*{matricula}">1234ABC</p>
+		<p th:text="*{bastidor}">12345678123456781</p>
+		<p th:text="*{marca}">Seat</p>
+		<p th:text="*{modelo}">Ibiza</p>
+		<p th:text="*{estadoReparacion}">Pendiente</p>
+	</div>
+</body>
+</html>
