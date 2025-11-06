@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Vehículos</title>
+<main>
 	<h1>Vehículos</h1>
-	
+
 	<pre th:text="${vehiculos}">LOS VEHÍCULOS</pre>
-	
+
 	<ul>
-		<li th:each="vehiculo: ${vehiculos}" th:object="${vehiculo}">
-			<a href="vehiculo.html" th:href="@{/vehiculo(id=*{id})}" th:text="*{matricula}">1234ABC</a>: 
-			<span th:text="*{estadoReparacion}">Pendiente</span>
-		</li>
+		<li th:each="vehiculo: ${vehiculos}" th:object="${vehiculo}"><a
+			href="vehiculo.html" th:href="@{/vehiculo(id=*{id})}"
+			th:text="*{matricula}">1234ABC</a>: <span
+			th:text="*{estadoReparacion}">Pendiente</span></li>
 	</ul>
-</body>
-</html>
+</main>

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Vehículo</title>
+<main>
 	<h1>Vehículo</h1>
 
 	<pre th:text="${vehiculo}">EL VEHÍCULO</pre>
@@ -17,5 +15,5 @@
 		<p th:text="*{modelo}">Ibiza</p>
 		<p th:text="*{estadoReparacion}">Pendiente</p>
 	</div>
-</body>
+</main>
 </html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html th:fragment="plantilla (titulo, contenido)" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:replace="${titulo}">Taller</title>
+</head>
+<body>
+    <h1>Taller</h1>
+    
+    <main th:replace="${contenido}">
+        <p>CONTENIDO</p>
+    </main>
+    <footer>
+        &copy;2025 Javier Lete
+    </footer>
+</body>
+</html>
