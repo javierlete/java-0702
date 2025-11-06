@@ -5,15 +5,23 @@
 <main>
 	<h1>Vehículo</h1>
 
-	<pre th:text="${vehiculo}">EL VEHÍCULO</pre>
-
-	<div th:object="${vehiculo}">
-		<p th:text="*{propietario.nombre}">Pepe</p>
-		<p th:text="*{matricula}">1234ABC</p>
-		<p th:text="*{bastidor}">12345678123456781</p>
-		<p th:text="*{marca}">Seat</p>
-		<p th:text="*{modelo}">Ibiza</p>
-		<p th:text="*{estadoReparacion}">Pendiente</p>
+	<div class="card text-center" th:object="${vehiculo}">
+		<div class="card-header lead fw-medium">Vehículo</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item"><span class="fw-medium">Matrícula</span>:
+				<span th:text="*{matricula}"></span></li>
+			<li class="list-group-item"><span class="fw-medium">Bastidor</span>:
+				<span th:text="*{bastidor}"></span></li>
+			<li class="list-group-item"><span class="fw-medium">Marca</span>:
+				<span th:text="*{marca}"></span></li>
+			<li class="list-group-item"><span class="fw-medium">Modelo</span>:
+				<span th:text="*{modelo}"></span></li>
+				
+			<li class="list-group-item"><span class="fw-medium">Estado
+					de reparación</span>: <span th:text="*{estadoReparacion}"></span></li>
+		</ul>
+		<div class="card-footer lead fw-medium" th:text="*{propietario.nombre}">Propietario</div>
 	</div>
+
 </main>
 </html>

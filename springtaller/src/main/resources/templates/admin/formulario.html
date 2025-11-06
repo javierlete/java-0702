@@ -8,32 +8,22 @@
 	<pre th:text="${vehiculo}"></pre>
 
 	<form action="tabla.html" th:action="@{/admin/editar}" method="post" th:object="${vehiculo}">
-		<input th:field="*{id}"> 
+		<input type="hidden" th:field="*{id}"> 
+
+<!-- 		<div th:replace="~{_fragmentos::labelForm('Matrícula', 'matricula', ~{_fragmentos::cuadro('matricula')})}"></div> -->
 		
-		<input placeholder="Matrícula" th:field="*{matricula}">
-		<p th:errors="*{matricula}"></p>
+		<div th:replace="~{_fragmentos::labelInput('Matrícula', 'matricula')}"></div>
+		<div th:replace="~{_fragmentos::labelInput('Bastidor', 'bastidor')}"></div>
+		<div th:replace="~{_fragmentos::labelInput('Marca', 'marca')}"></div>
+		<div th:replace="~{_fragmentos::labelInput('Modelo', 'modelo')}"></div>
+		<div th:replace="~{_fragmentos::labelSelect('Estado Reparación', 'estadoReparacion', ${estados})}"></div>
+		<div th:replace="~{_fragmentos::labelSelectTextoValor('Propietarios', 'propietario', ${usuarios}, 'nombre', 'id')}"></div>
 
-		<input placeholder="Bastidor" th:field="*{bastidor}">
-		<p th:errors="*{bastidor}"></p>
-
-		<input placeholder="Marca" th:field="*{marca}">
-		<p th:errors="*{marca}"></p>
-
-		<input placeholder="Modelo" th:field="*{modelo}">
-		<p th:errors="*{modelo}"></p>
-
-		<select th:field="*{estadoReparacion}">
-			<option th:each="estado: ${estados}" th:text="${estado}" th:value="${estado}"></option>
-		</select>
-		<p th:errors="*{estadoReparacion}"></p>
-
-		<select th:field="*{propietario}">
-			<option th:each="usuario: ${usuarios}" th:text="${usuario.nombre}" th:value="${usuario.id}"></option>
-		</select>
-		<p th:errors="*{propietario}"></p>
+<!-- 		<div th:replace="~{_fragmentos::labelForm('Estado Reparación', 'estadoReparacion', ~{_fragmentos::selectBasico('estadoReparacion', ${estados})})}"></div> -->
+<!-- 		<div th:replace="~{_fragmentos::labelForm('Propietarios', 'propietario', ~{_fragmentos::selectTextoValor('propietario', ${usuarios}, 'nombre', 'id')})}"></div> -->
 	
-		<button>Guardar</button>
-	</form>
+		<button class="btn btn-primary">Guardar</button>
+	</form> 
 
 </main>
 </html>

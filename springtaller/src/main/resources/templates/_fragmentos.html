@@ -1,0 +1,60 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<div th:fragment="labelForm(etiqueta, nombre, contenido)"
+	class="row mb-3">
+	<label th:for="${nombre}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
+	<div class="col-sm-10">
+		<th:block th:replace="${contenido}"></th:block>
+		<div class="text-danger" th:errors="*{__${nombre}__}"></div>
+	</div>
+</div>
+
+<input th:fragment="cuadro(nombre)" class="form-control"
+	th:field="*{__${nombre}__}"></input>
+
+<select th:fragment="selectBasico(nombre, opciones)" class="form-select" th:field="*{__${nombre}__}">
+	<option th:each="o: ${opciones}" th:value="${o}" th:text="${o}"></option>
+</select>
+
+<select th:fragment="selectTextoValor(nombre, opciones, texto, valor)" class="form-select" th:field="*{__${nombre}__}">
+	<option th:each="o: ${opciones}" th:value="${o[valor]}"
+		th:text="${o[texto]}"></option>
+</select>
+
+<div th:fragment="labelInput(etiqueta, nombre)" class="row mb-3">
+	<label th:for="${nombre}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
+	<div class="col-sm-10">
+		<input class="form-control" th:field="*{__${nombre}__}">
+		<div class="text-danger" th:errors="*{__${nombre}__}"></div>
+	</div>
+</div>
+
+<div th:fragment="labelSelect(etiqueta, nombre, opciones)"
+	class="row mb-3">
+	<label th:for="${nombre}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
+	<div class="col-sm-10">
+		<select class="form-select" th:field="*{__${nombre}__}">
+			<option th:each="o: ${opciones}" th:value="${o}" th:text="${o}"></option>
+		</select>
+		<div class="text-danger" th:errors="*{__${nombre}__}"></div>
+	</div>
+</div>
+
+<div
+	th:fragment="labelSelectTextoValor(etiqueta, nombre, opciones, texto, valor)"
+	class="row mb-3">
+	<label th:for="${nombre}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
+	<div class="col-sm-10">
+		<select class="form-select" th:field="*{__${nombre}__}">
+			<option th:each="o: ${opciones}" th:value="${o[valor]}"
+				th:text="${o[texto]}"></option>
+		</select>
+		<div class="text-danger" th:errors="*{__${nombre}__}"></div>
+	</div>
+</div>
+
+</html>
