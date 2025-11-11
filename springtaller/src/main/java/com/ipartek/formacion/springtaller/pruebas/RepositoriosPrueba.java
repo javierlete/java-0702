@@ -31,8 +31,8 @@ public class RepositoriosPrueba implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		var admin = Rol.builder().nombre("ADMIN").build();
-		var user = Rol.builder().nombre("USER").build();
+		var admin = Rol.builder().nombre("ADMINISTRADOR").build();
+		var user = Rol.builder().nombre("USUARIO").build();
 
 		rolRepository.saveAll(List.of(admin, user));
 
