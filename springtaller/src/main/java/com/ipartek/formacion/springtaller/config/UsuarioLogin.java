@@ -19,6 +19,10 @@ public class UsuarioLogin extends Usuario implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(() -> "ROLE_" + getRol().getNombre());
+		if (getRol() != null) {
+			return List.of(() -> "ROLE_" + getRol().getNombre());
+		} else {
+			return List.of();
+		}
 	}
 }
