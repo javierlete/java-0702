@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.springtaller.entidades.Rol;
@@ -28,6 +29,9 @@ public class RepositoriosPrueba implements CommandLineRunner {
 
 	@Autowired
 	private RolRepository rolRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,11 +41,11 @@ public class RepositoriosPrueba implements CommandLineRunner {
 		rolRepository.saveAll(List.of(admin, user));
 
 		usuarioRepository.save(
-				Usuario.builder().nombre("Javier").email("javier@email.net").password("javier").rol(admin).build());
+				Usuario.builder().nombre("Javier").email("javier@email.net").password(passwordEncoder.encode("javier")).rol(admin).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password("pepe").rol(user).build());
+				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password(passwordEncoder.encode("pepe")).rol(user).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password("juan").rol(user).build());
+				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password(passwordEncoder.encode("juan")).rol(user).build());
 
 		usuarioRepository.findByEmail("pepe@email.net").ifPresent(System.out::println);
 
