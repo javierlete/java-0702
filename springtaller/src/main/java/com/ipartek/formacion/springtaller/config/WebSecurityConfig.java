@@ -18,9 +18,12 @@ public class WebSecurityConfig {
 	// AUTORIZACIÓN
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				requests -> requests.requestMatchers("/admin/**").hasRole("ADMINISTRADOR").anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").permitAll()).logout(logout -> logout.permitAll());
+		http.authorizeHttpRequests(requests -> requests
+			.requestMatchers("/admin/**").hasRole("ADMINISTRADOR")
+			.anyRequest().authenticated()
+		)
+		.formLogin(form -> form.loginPage("/login").permitAll())
+		.logout(logout -> logout.permitAll());
 
 		return http.build();
 	}
