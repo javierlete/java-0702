@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ipartek.formacion.springtaller.entidades.Rol;
 import com.ipartek.formacion.springtaller.entidades.Usuario;
 
 public class UsuarioLogin extends Usuario implements UserDetails {
@@ -18,11 +19,12 @@ public class UsuarioLogin extends Usuario implements UserDetails {
 	}
 
 	@Override
+	public Rol getRol() {
+		return super.getRol() != null ? super.getRol() : new Rol();
+	}
+
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (getRol() != null) {
-			return List.of(() -> "ROLE_" + getRol().getNombre());
-		} else {
-			return List.of();
-		}
+		return super.getRol() != null ? List.of(() -> "ROLE_" + getRol().getNombre()) : List.of();
 	}
 }
