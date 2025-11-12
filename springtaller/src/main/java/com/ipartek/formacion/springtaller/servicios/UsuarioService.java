@@ -8,6 +8,8 @@ import com.ipartek.formacion.springtaller.entidades.Vehiculo;
 
 public interface UsuarioService {
 	Collection<Vehiculo> listadoVehiculos();
+	Collection<Vehiculo> listadoVehiculos(Usuario usuario);
+	
 	Optional<Vehiculo> detalleVehiculo(Long id);
 	Optional<Vehiculo> detalleVehiculo(String matricula);
 	

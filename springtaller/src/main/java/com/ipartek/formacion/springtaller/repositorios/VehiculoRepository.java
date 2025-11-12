@@ -1,5 +1,6 @@
 package com.ipartek.formacion.springtaller.repositorios;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -25,4 +26,6 @@ public interface VehiculoRepository extends CrudRepository<Vehiculo, Long>, Pagi
 
 	@Query("from Vehiculo v left join fetch v.propietario p left join fetch p.rol where v.matricula=:matricula")
 	Optional<Vehiculo> buscarPorMatricula(String matricula);
+
+	Collection<Vehiculo> findByPropietarioId(Long id);
 }

@@ -20,13 +20,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private VehiculoRepository vehiculoRepository;
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Override
 	public Collection<Vehiculo> listadoVehiculos() {
 		return vehiculoRepository.findAll(Pageable.ofSize(20)).getContent();
+	}
+
+	@Override
+	public Collection<Vehiculo> listadoVehiculos(Usuario usuario) {
+		if (usuario.getRol().getNombre() != null && usuario.getRol().getNombre().equals("ADMINISTRADOR")) {
+			return listadoVehiculos();
+		} else {
+			return vehiculoRepository.findByPropietarioId(usuario.getId());
+		}
 	}
 
 	@Override
@@ -41,19 +50,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Vehiculo altaVehiculo(@Valid Vehiculo vehiculo) {
-		if(vehiculo.getId() != null) {
+		if (vehiculo.getId() != null) {
 			throw new IllegalArgumentException("No se puede poner un id para añadir un vehículo");
 		}
-		
+
 		return vehiculoRepository.save(vehiculo);
 	}
 
 	@Override
 	public Vehiculo modificacionVehiculo(@Valid Vehiculo vehiculo) {
-		if(vehiculo.getId() == null) {
+		if (vehiculo.getId() == null) {
 			throw new IllegalArgumentException("Se necesita un id para modificar un vehículo");
 		}
-		
+
 		return vehiculoRepository.save(vehiculo);
 	}
 
