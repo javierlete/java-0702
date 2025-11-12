@@ -7,12 +7,34 @@
 
 	<pre th:text="${vehiculo}"></pre>
 
-	<form action="tabla.html" th:action="@{/login}" method="post">
-		<input name="username">
-		<input name="password">
+	<form action="tabla.html" th:action="@{/login}" method="post" class="needs-validation" novalidate>
+		<div th:replace="~{_fragmentos :: labelInputCampo('Email', 'username', 'email', 'Se debe proporcionar un email con el formato correcto')}"></div>
+		<div th:replace="~{_fragmentos :: labelInputCampo('Contraseña', 'password', 'password', 'La contraseña no cumple la complejidad')}"></div>
 		
 		<button class="btn btn-primary">Iniciar sesión</button>
 	</form> 
+
+	<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(() => {
+	  'use strict'
+
+	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	  const forms = document.querySelectorAll('.needs-validation')
+
+	  // Loop over them and prevent submission
+	  Array.from(forms).forEach(form => {
+	    form.addEventListener('submit', event => {
+	      if (!form.checkValidity()) {
+	        event.preventDefault()
+	        event.stopPropagation()
+	      }
+
+	      form.classList.add('was-validated')
+	    }, false)
+	  })
+	})()
+	</script>
 
 </main>
 </html>

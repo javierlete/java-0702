@@ -22,6 +22,15 @@
 		th:text="${o[texto]}"></option>
 </select>
 
+<div th:fragment="labelInputCampo(etiqueta, campo, tipo, error)" class="row mb-3">
+	<label th:for="${campo}" class="col-sm-2 col-form-label"
+		th:text="${etiqueta != null ? etiqueta : campo}"></label>
+	<div class="col-sm-10">
+		<input th:type="${tipo}" class="form-control" th:id="${campo}" th:name="${campo}">
+		<div class="invalid-feedback" th:text="${error}"></div>
+	</div>
+</div>
+
 <div th:fragment="labelInput(etiqueta, nombre)" class="row mb-3">
 	<label th:for="${nombre}" class="col-sm-2 col-form-label"
 		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
