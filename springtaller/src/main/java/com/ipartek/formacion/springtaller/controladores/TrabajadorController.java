@@ -13,18 +13,18 @@ import com.ipartek.formacion.springtaller.servicios.TrabajadorService;
 public class TrabajadorController {
 	@Autowired
 	private TrabajadorService trabajadorService;
-	
+
 	@GetMapping("agregar-vehiculo")
 	public String agregarVehiculo(Long id) {
 		trabajadorService.meterVehiculoEnCola(id);
-		
+
 		return "redirect:/trabajador/cola";
 	}
-	
+
 	@GetMapping("cola")
 	public String cola(Model modelo) {
-modelo.addAttribute("vehiculos", trabajadorService.listarVehiculosEnCola());
-		
+		modelo.addAttribute("vehiculos", trabajadorService.listarVehiculosEnCola());
+
 		return "trabajador/cola";
 	}
 }
