@@ -8,4 +8,6 @@ import com.ipartek.formacion.springtaller.entidades.Rol;
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 public interface RolRepository extends CrudRepository<Rol, Long> {
 
+	Rol findByNombre(String string);
+
 }

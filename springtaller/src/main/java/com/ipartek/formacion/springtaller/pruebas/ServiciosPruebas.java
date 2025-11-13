@@ -5,7 +5,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.ipartek.formacion.springtaller.entidades.Rol;
 import com.ipartek.formacion.springtaller.entidades.Usuario;
 import com.ipartek.formacion.springtaller.servicios.AnonimoService;
 import com.ipartek.formacion.springtaller.servicios.UsuarioService;
@@ -30,7 +29,7 @@ public class ServiciosPruebas implements CommandLineRunner {
 				() -> System.out.println("No autenticado"));
 		
 		try  {
-			anonimoService.registrar(Usuario.builder().nombre("Pedro").email("pedro@email.net").password("pedro").rol(Rol.builder().id(1L).build()).build());
+			anonimoService.registrar(Usuario.builder().nombre("Pedro").email("pedro@email.net").password("pedro").build());
 			
 			usuarioService.listadoUsuarios().forEach(System.out::println);
 		} catch(ConstraintViolationException e) {

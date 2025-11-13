@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ipartek.formacion.springtaller.entidades.Usuario;
+import com.ipartek.formacion.springtaller.repositorios.RolRepository;
 import com.ipartek.formacion.springtaller.repositorios.UsuarioRepository;
 
 import jakarta.validation.Valid;
@@ -15,6 +16,9 @@ import jakarta.validation.Valid;
 public class AnonimoServiceImpl implements AnonimoService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private RolRepository rolRepository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -32,7 +36,11 @@ public class AnonimoServiceImpl implements AnonimoService {
 
 	@Override
 	public Usuario registrar(@Valid Usuario usuario) {
+		var rolUsuario = rolRepository.findByNombre("USUARIO"); 
+		
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		usuario.setRol(rolUsuario);
+		
 		return usuarioRepository.save(usuario);
 	}
 
