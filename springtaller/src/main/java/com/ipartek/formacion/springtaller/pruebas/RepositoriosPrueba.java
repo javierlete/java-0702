@@ -46,16 +46,16 @@ public class RepositoriosPrueba implements CommandLineRunner {
 		usuarioRepository
 				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password(passwordEncoder.encode("pepe")).rol(trabajador).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password(passwordEncoder.encode("juan")).rol(user).build());
+				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password(passwordEncoder.encode("juan")).rol(trabajador).build());
 
 		usuarioRepository.findByEmail("pepe@email.net").ifPresent(System.out::println);
 
 		vehiculoRepository.save(Vehiculo.builder().matricula("1234ABC").bastidor("12341234123412341")
-				.propietario(Usuario.builder().id(1L).build()).build());
+				.propietario(Usuario.builder().id(3L).build()).build());
 		vehiculoRepository.save(Vehiculo.builder().matricula("5678ABC").bastidor("12341234123412342")
-				.propietario(Usuario.builder().id(2L).build()).build());
+				.propietario(Usuario.builder().id(4L).build()).build());
 		vehiculoRepository.save(Vehiculo.builder().matricula("4321ABC").bastidor("12341234123412343")
-				.propietario(Usuario.builder().id(2L).build()).build());
+				.propietario(Usuario.builder().id(4L).build()).build());
 
 		System.out.println("\nTodos los vehículos\n");
 		
