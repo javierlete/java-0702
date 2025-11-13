@@ -6,7 +6,7 @@
 <main>
 	<h1>Vehículos</h1>
 
-	<div class="row row-cols-1 row-cols-md-3 g-4">
+	<div class="row row-cols-1 g-4">
 		<div class="col" th:each="vehiculo: ${vehiculos}" th:object="${vehiculo}">
 			<div class="card h-100">
 				<div class="card-body">
@@ -14,9 +14,6 @@
 					<p class="card-text" th:text="*{marca}">This is a wider card with supporting text
 						below as a natural lead-in to additional content. This content is
 						a little bit longer.</p>
-					<p sec:authorize="hasRole('ROLE_TRABAJADOR')">
-						<a class="btn btn-primary" href="#" th:href="@{/trabajador/agregar-vehiculo(id=*{id})}">Añadir vehículo a la cola</a>
-					</p>
 				</div>
 				<div class="card-footer">
 					<small class="text-body-secondary" th:text="*{estadoReparacion}">Last updated 3 mins ago</small>

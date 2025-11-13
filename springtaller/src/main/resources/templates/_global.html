@@ -6,7 +6,7 @@
 <title th:replace="${titulo}">Taller</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
-<base href="/taller/cf/">
+<base href="@{/}">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -30,6 +30,8 @@
 						th:href="@{/}">Vehículos</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li sec:authorize="hasRole('ROLE_TRABAJADOR')" class="nav-item"><a class="nav-link"
+						href="admin/tabla.html" th:href="@{/trabajador/cola}">Cola</a></li>
 					<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')" class="nav-item"><a class="nav-link"
 						href="admin/tabla.html" th:href="@{/admin}">Administración</a></li>
 					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" href="#">Iniciar
