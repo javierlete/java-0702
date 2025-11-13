@@ -36,14 +36,15 @@ public class RepositoriosPrueba implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		var admin = Rol.builder().nombre("ADMINISTRADOR").build();
+		var trabajador = Rol.builder().nombre("TRABAJADOR").build();
 		var user = Rol.builder().nombre("USUARIO").build();
 
-		rolRepository.saveAll(List.of(admin, user));
+		rolRepository.saveAll(List.of(admin, user, trabajador));
 
 		usuarioRepository.save(
 				Usuario.builder().nombre("Javier").email("javier@email.net").password(passwordEncoder.encode("javier")).rol(admin).build());
 		usuarioRepository
-				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password(passwordEncoder.encode("pepe")).rol(user).build());
+				.save(Usuario.builder().nombre("Pepe").email("pepe@email.net").password(passwordEncoder.encode("pepe")).rol(trabajador).build());
 		usuarioRepository
 				.save(Usuario.builder().nombre("Juan").email("juan@email.net").password(passwordEncoder.encode("juan")).rol(user).build());
 

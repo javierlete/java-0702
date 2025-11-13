@@ -31,7 +31,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Collection<Vehiculo> listadoVehiculos(Usuario usuario) {
-		if (usuario.getRol().getNombre() != null && usuario.getRol().getNombre().equals("ADMINISTRADOR")) {
+		String rol = usuario.getRol().getNombre();
+
+		if (rol != null && (rol.equals("ADMINISTRADOR") || rol.equals("TRABAJADOR"))) {
 			return listadoVehiculos();
 		} else {
 			return vehiculoRepository.findByPropietarioId(usuario.getId());
