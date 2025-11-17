@@ -21,5 +21,10 @@ public class AnonimoServiceImpl implements AnonimoService {
 		log.info("Se han pedido los productos de la página " + pageable.getPageNumber() + " con tamaño " + pageable.getPageSize());
 		return productoRepository.findAll(pageable);
 	}
+
+	@Override
+	public Producto detalleProducto(Long id) {
+		return productoRepository.findById(id).orElse(null);
+	}
 	
 }

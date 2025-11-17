@@ -7,4 +7,6 @@ import com.ipartek.formacion.amazonia.modelos.Producto;
 
 public interface AnonimoService {
 	Page<Producto> listadoProductos(Pageable pageable);
+
+	Producto detalleProducto(Long id);
 }
