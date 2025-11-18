@@ -18,31 +18,34 @@ public class IndexController {
 
 	@Autowired
 	private AnonimoService anonimoService;
-	
+
 	@GetMapping
-	public String index(Model modelo, @RequestParam(name = "id", required = false) Long idCategoria) {
+	public String index(Model modelo, @RequestParam(name = "id", required = false) Long idCategoria,
+			@RequestParam(name = "pagina", required = false, defaultValue = "0") int numeroPagina) {
 		Page<Producto> pagina;
-		
+
 		Categoria categoria;
+
+		Pageable pageable = Pageable.ofSize(TAMANO_PAGINA).withPage(numeroPagina);
 		
-		if(idCategoria == null) {
-			pagina= anonimoService.listadoProductos(Pageable.ofSize(TAMANO_PAGINA));
+		if (idCategoria == null) {
+			pagina = anonimoService.listadoProductos(pageable);
 			categoria = Categoria.builder().nombre("TODOS").descripcion("Todos los productos de Amazonia").build();
 		} else {
-			pagina = anonimoService.listadoProductos(Pageable.ofSize(TAMANO_PAGINA), idCategoria);
+			pagina = anonimoService.listadoProductos(pageable, idCategoria);
 			categoria = anonimoService.detalleCategoria(idCategoria);
 		}
-		
+
 		modelo.addAttribute("categoria", categoria);
 		modelo.addAttribute("pagina", pagina);
-		
+
 		return "index";
 	}
-	
+
 	@GetMapping("detalle")
 	public String detalle(Long id, Model modelo) {
 		modelo.addAttribute("producto", anonimoService.detalleProducto(id));
-		
+
 		return "detalle";
 	}
 }

@@ -39,6 +39,8 @@ public class Pruebas implements CommandLineRunner {
 				.save(Producto.builder().nombre("Ratón").precio(new BigDecimal(12)).imagen("raton.jpg").categoria(accesorios).build());
 		productoRepository
 				.save(Producto.builder().nombre("Teclado").precio(new BigDecimal(123)).imagen("teclado.jpg").categoria(accesorios).build());
+		productoRepository
+		.save(Producto.builder().nombre("Monitor").precio(new BigDecimal(234)).imagen("monitor.jpg").categoria(accesorios).build());
 
 		System.out.println("REPOSITORIO FINDALL");
 		productoRepository.findAll().forEach(System.out::println);
