@@ -22,9 +22,9 @@ public class Pruebas implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		productoRepository.save(Producto.builder().nombre("Portátil").precio(new BigDecimal(1234)).build());
-		productoRepository.save(Producto.builder().nombre("Ratón").precio(new BigDecimal(12)).build());
-		productoRepository.save(Producto.builder().nombre("Teclado").precio(new BigDecimal(123)).build());
+		productoRepository.save(Producto.builder().nombre("Portátil").precio(new BigDecimal(1234)).imagen("portatil.jpg").build());
+		productoRepository.save(Producto.builder().nombre("Ratón").precio(new BigDecimal(12)).imagen("raton.jpg").build());
+		productoRepository.save(Producto.builder().nombre("Teclado").precio(new BigDecimal(123)).imagen("teclado.jpg").build());
 
 		System.out.println("REPOSITORIO FINDALL");
 		productoRepository.findAll().forEach(System.out::println);
