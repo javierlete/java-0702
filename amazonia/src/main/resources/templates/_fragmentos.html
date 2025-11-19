@@ -31,11 +31,11 @@
 	</div>
 </div>
 
-<div th:fragment="labelInput(etiqueta, nombre)" class="row mb-3">
+<div th:fragment="labelInput(etiqueta, nombre, tipo)" class="row mb-3">
 	<label th:for="${nombre}" class="col-sm-2 col-form-label"
 		th:text="${etiqueta != null ? etiqueta : nombre}"></label>
 	<div class="col-sm-10">
-		<input class="form-control" th:field="*{__${nombre}__}">
+		<input th:type="${tipo}" class="form-control" th:field="*{__${nombre}__}">
 		<div class="text-danger" th:errors="*{__${nombre}__}"></div>
 	</div>
 </div>

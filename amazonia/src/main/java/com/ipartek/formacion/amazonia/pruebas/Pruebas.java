@@ -11,8 +11,10 @@ import org.springframework.stereotype.Component;
 
 import com.ipartek.formacion.amazonia.modelos.Categoria;
 import com.ipartek.formacion.amazonia.modelos.Producto;
+import com.ipartek.formacion.amazonia.modelos.Rol;
 import com.ipartek.formacion.amazonia.repositorios.CategoriaRepository;
 import com.ipartek.formacion.amazonia.repositorios.ProductoRepository;
+import com.ipartek.formacion.amazonia.repositorios.RolRepository;
 import com.ipartek.formacion.amazonia.servicios.AnonimoService;
 
 @Component
@@ -24,10 +26,18 @@ public class Pruebas implements CommandLineRunner {
 	private CategoriaRepository categoriaRepository;
 
 	@Autowired
+	private RolRepository rolRepository;
+	
+	@Autowired
 	private AnonimoService anonimoServicio;
-
+	
 	@Override
 	public void run(String... args) throws Exception {
+		var usuarios = Rol.builder().nombre("USUARIO").build();
+		var administradores = Rol.builder().nombre("ADMINISTRADORES").build();
+		
+		rolRepository.saveAll(List.of(usuarios, administradores));
+		
 		var equipos = Categoria.builder().nombre("Equipos").descripcion("Equipos informáticos").build();
 		var accesorios = Categoria.builder().nombre("Accesorios").descripcion("Accesorios").build();
 		

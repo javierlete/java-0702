@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Amazonia</title>
+<main>
+	<h1>Registro</h1>
+
+	<p th:text="${usuario}"></p>
+
+	<form th:action="@{/registro}" method="post" th:object="${usuario}">
+		<div th:replace="~{_fragmentos :: labelInput('Email', 'email', 'email')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Contraseña', 'password', 'password')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Nombre', 'nombre', 'text')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Apellidos', 'apellidos', 'text')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Teléfono', 'telefono', 'text')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Calle', 'direccion.calle', 'text')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Localidad', 'direccion.localidad', 'text')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Código Postal', 'direccion.codigoPostal', 'number')}"></div>
+		<div th:replace="~{_fragmentos :: labelInput('Provincia', 'direccion.provincia', 'text')}"></div>
+		
+		<button type="submit" class="btn btn-primary">Registrarse</button>
+	</form>
+</main>

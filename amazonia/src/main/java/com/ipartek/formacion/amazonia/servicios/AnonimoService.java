@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.ipartek.formacion.amazonia.modelos.Categoria;
 import com.ipartek.formacion.amazonia.modelos.Producto;
+import com.ipartek.formacion.amazonia.modelos.Usuario;
 
 public interface AnonimoService {
 	Page<Producto> listadoProductos(Pageable pageable);
@@ -13,4 +14,6 @@ public interface AnonimoService {
 	
 	Page<Categoria> listadoCategorias(Pageable pageable);
 	Categoria detalleCategoria(Long idCategoria);
+	
+	Usuario registrarse(Usuario usuario);
 }

@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ipartek.formacion.amazonia.modelos.Categoria;
 import com.ipartek.formacion.amazonia.modelos.Producto;
+import com.ipartek.formacion.amazonia.modelos.Usuario;
 import com.ipartek.formacion.amazonia.servicios.AnonimoService;
 
 @Controller
@@ -47,5 +49,24 @@ public class IndexController {
 		modelo.addAttribute("producto", anonimoService.detalleProducto(id));
 
 		return "detalle";
+	}
+	
+	@GetMapping("registro")
+	public String registro(Usuario usuario) {
+//		var direccion = Direccion.builder().calle("Su calle").localidad("Su localidad").codigoPostal("12345").provincia("Su provincia").build();
+//		var usuario = Usuario.builder().nombre("Javier").apellidos("Lete").email("javier@email.net").password("javier").telefono("123123123").direccion(direccion).build();
+
+//		modelo.addAttribute("usuario", usuario);
+		
+		return "registro";
+	}
+	
+	@PostMapping("registro")
+	public String registroPost(Usuario usuario) {
+		System.out.println(usuario);
+		
+		anonimoService.registrarse(usuario);
+		
+		return "redirect:/";
 	}
 }
