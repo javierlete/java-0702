@@ -55,6 +55,11 @@ public class IndexController {
 		return "detalle";
 	}
 	
+	@GetMapping("login")
+	public String login() {
+		return "login";
+	}
+	
 	@GetMapping("registro")
 	public String registro(Usuario usuario, Direccion direccion) {
 		return "registro";

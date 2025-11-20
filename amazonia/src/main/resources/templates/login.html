@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="https://www.thymeleaf.org">
+<title>Amazonia</title>
+<main>
+	<h1>Inicio de sesión</h1>
+
+	<form th:action="@{/login}" method="post">
+		<div
+			th:replace="~{_fragmentos :: labelInputCampo('Email', 'username', 'email', '')}"></div>
+		<div
+			th:replace="~{_fragmentos :: labelInputCampo('Contraseña', 'password', 'password', '')}"></div>
+		<button type="submit" class="btn btn-primary">Inicio sesión</button>
+	</form>
+</main>

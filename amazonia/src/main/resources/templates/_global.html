@@ -32,8 +32,19 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item">
+					<li sec:authorize="hasRole('ROLE_ADMINISTRADOR')" class="nav-item"><a class="nav-link"
+						href="admin/tabla.html" th:href="@{/admin}">Administración</a></li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item">
 						<a class="nav-link" href="#" th:href="@{/registro}">Registrarse</a>
+					</li>
+					<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="nav-link" href="#" th:href="@{/login}">Iniciar
+							sesión</a></li>
+					<li sec:authorize="isAuthenticated()" class="mx-1 navbar-text" th:text="${#authentication.principal.nombre}">USUARIO</li>
+					<li sec:authorize="isAuthenticated()" class="mx-1 navbar-text" th:text="${#authentication.principal.rol.nombre}">ROL</li>
+					<li sec:authorize="isAuthenticated()" class="nav-item">
+						<form th:action="@{/logout}" method="post">
+							<button class="nav-link">Cerrar sesión</button>
+						</form>
 					</li>
 				</ul>
 			</div>
