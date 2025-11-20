@@ -5,14 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ipartek.formacion.amazonia.modelos.Categoria;
+import com.ipartek.formacion.amazonia.modelos.Direccion;
 import com.ipartek.formacion.amazonia.modelos.Producto;
 import com.ipartek.formacion.amazonia.modelos.Usuario;
 import com.ipartek.formacion.amazonia.servicios.AnonimoService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class IndexController {
@@ -52,18 +56,23 @@ public class IndexController {
 	}
 	
 	@GetMapping("registro")
-	public String registro(Usuario usuario) {
-//		var direccion = Direccion.builder().calle("Su calle").localidad("Su localidad").codigoPostal("12345").provincia("Su provincia").build();
-//		var usuario = Usuario.builder().nombre("Javier").apellidos("Lete").email("javier@email.net").password("javier").telefono("123123123").direccion(direccion).build();
-
-//		modelo.addAttribute("usuario", usuario);
-		
+	public String registro(Usuario usuario, Direccion direccion) {
 		return "registro";
 	}
 	
 	@PostMapping("registro")
-	public String registroPost(Usuario usuario) {
+	public String registroPost(@Valid Usuario usuario, BindingResult bindingResult, @Valid Direccion direccion, BindingResult bindingResultDireccion) {
 		System.out.println(usuario);
+		System.out.println(direccion);
+		
+		if(bindingResult.hasErrors() || bindingResultDireccion.hasErrors()) {
+			System.out.println(bindingResult);
+			System.out.println(bindingResultDireccion);
+			
+			return "registro";
+		}
+		
+		usuario.setDireccion(direccion);
 		
 		anonimoService.registrarse(usuario);
 		

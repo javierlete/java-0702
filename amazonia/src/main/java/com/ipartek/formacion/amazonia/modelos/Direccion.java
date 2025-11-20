@@ -25,8 +25,8 @@ public class Direccion {
 	private String localidad;
 	
 	@NotBlank
-	@Size(min = 5, max = 5)
-	@Pattern(regexp = "\\d{5}")
+	@Size(min = 5, max = 5, message = "deben ser 5 caracteres")
+	@Pattern(regexp = "\\d{5}", message = "todos los caracteres deben ser dígitos")
 	private String codigoPostal;
 	
 	@NotBlank

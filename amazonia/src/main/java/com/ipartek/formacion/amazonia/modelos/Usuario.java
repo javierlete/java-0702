@@ -38,8 +38,8 @@ public class Usuario {
 	@Size(max = 100)
 	private String apellidos;
 
-	@Size(min = 9, max = 9)
-	@Pattern(regexp = "\\d{9}")
+	@Size(min = 9, max = 9, message = "debe tener 9 caracteres")
+	@Pattern(regexp = "\\d{9}", message = "todos los caracteres deben ser dígitos")
 	private String telefono;
 
 	@NotBlank
@@ -54,7 +54,8 @@ public class Usuario {
 	
 	@NotNull
 	@ManyToOne
-	private Rol rol;
+	@Builder.Default
+	private Rol rol = Rol.builder().id(1L).nombre("USUARIO").build();
 	
 	@Embedded
 	private Direccion direccion;

@@ -13,6 +13,7 @@ import com.ipartek.formacion.amazonia.repositorios.ProductoRepository;
 import com.ipartek.formacion.amazonia.repositorios.RolRepository;
 import com.ipartek.formacion.amazonia.repositorios.UsuarioRepository;
 
+import jakarta.validation.Valid;
 import lombok.extern.java.Log;
 
 @Log
@@ -57,7 +58,7 @@ public class AnonimoServiceImpl implements AnonimoService {
 	}
 
 	@Override
-	public Usuario registrarse(Usuario usuario) {
+	public Usuario registrarse(@Valid Usuario usuario) {
 		var rolUsuario = rolRepository.findByNombre("USUARIO");
 		
 		if(rolUsuario.isEmpty()) {
